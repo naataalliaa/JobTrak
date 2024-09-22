@@ -11,19 +11,23 @@ const Home: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const goToVoiceControl = () => {
-    navigate('/voice-control'); 
+  const goToCalendar = () => {
+    navigate('/Calendar'); 
+  };
+
+  const goToDashboard = () => {
+    navigate('/Dashboard'); 
   };
 
   return (
     <header className="header">
       <h1>JobTrak</h1>
       
-      <button onClick={() => navigate('/')}>Home</button> 
+      <button>Home</button> 
    
-      <button onClick={goToVoiceControl}>Dashboard</button> 
+      <button onClick={goToDashboard}>Dashboard</button> 
       
-      <button>Calendar</button>
+      <button onClick={goToCalendar}>Calendar</button> 
     
       <button>Settings</button>
      

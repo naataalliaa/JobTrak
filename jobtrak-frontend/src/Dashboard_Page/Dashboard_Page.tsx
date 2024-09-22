@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import './Calendar.css'
+import './Dashboard.css'
 
-const Calendar: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const navigate = useNavigate();
 
@@ -12,8 +11,8 @@ const Calendar: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const Calendar_Page = () => {
-    navigate('/Calendar_Page'); 
+  const Dashboard_Page = () => {
+    navigate('/Dashboard_Page'); 
   };
 
   return (
@@ -23,5 +22,4 @@ const Calendar: React.FC = () => {
   );
 };
 
-export default Calendar;
-
+export default Dashboard;

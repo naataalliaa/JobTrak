@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Settings from './components/Settings/Settings';
 import Interview from './components/Interview/Interview';
 import Calendar from './components/Calendar/Calendar';
+// import Calendar_Page from './components/Calendar_Page/Calendar_Page';
 
 const AppRoutes = () => (
   <Router>
@@ -13,6 +14,7 @@ const AppRoutes = () => (
       <Route path="/settings" element={<Settings />} />
       <Route path="/interview" element={<Interview />} />
       <Route path="/calendar" element={<Calendar />} />
+      {/* <Route path="/calendar_page" element={<Calendar_Page />} /> */}
     </Routes>
   </Router>
 );
