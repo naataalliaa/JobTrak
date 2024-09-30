@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
   return (
     <header className="header">
       <h1>JobTrak</h1>
+     
     </header>
   );
 };
