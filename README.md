@@ -18,9 +18,7 @@ Before you begin, ensure you have the following installed:
 
 - **React.js** (with TypeScript)
 - **React Router** for navigation
-- **Axios** or Fetch API for HTTP requests
-- **FullCalendar** for interview scheduling
-- **Chart.js** for data visualization
+- **Axios** for HTTP requests
 
 ### Backend
 
