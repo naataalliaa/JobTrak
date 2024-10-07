@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { IInterview } from '../components/types/interviewTypes';
 
-
-
 const API_URL = "http://localhost:5002/api";
 
 export const fetchInterviews = async (): Promise<IInterview[]> => {
-  const res = await axios.get(API_URL);
+  const res = await axios.get(`${API_URL}/`);
   return res.data;
 };
 
