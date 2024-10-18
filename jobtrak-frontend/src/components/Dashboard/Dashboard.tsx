@@ -1,6 +1,7 @@
-import './Dashboard.css';
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import './Dashboard.css';
+import { useNavigate } from 'react-router-dom'; 
 
 interface Interview {
   _id: string;
@@ -20,6 +21,8 @@ const Dashboard: React.FC = () => {
     applicationLink: '',
     notes: '',
   });
+  const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
+  const navigate = useNavigate();
 
   // Fetch interviews on component mount
   useEffect(() => {
@@ -73,45 +76,79 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
   return (
     <div className="dashboard">
-  
+      {/* Header */}
+      <header className="header">
+        <h1>JobTrak</h1>
+
+        {/* Theme Switcher */}
+        <div className="theme-switcher">
+          <label className="light" title="Light Theme">
+            <input
+              name="theme"
+              type="radio"
+              value="light"
+              checked={theme === 'light'}
+              onChange={() => setTheme('light')}
+            />
+            Light
+          </label>
+
+          <label className="dark" title="Dark Theme">
+            <input
+              name="theme"
+              type="radio"
+              value="dark"
+              checked={theme === 'dark'}
+              onChange={() => setTheme('dark')}
+            />
+            Dark
+          </label>
+        </div>
+      </header>
+
       {/* Form for adding new interviews */}
       <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          name="companyname" 
-          value={formData.companyname} 
-          onChange={handleInputChange} 
-          placeholder="Company Name" 
-          required 
+        <input
+          type="text"
+          name="companyname"
+          value={formData.companyname}
+          onChange={handleInputChange}
+          placeholder="Company Name"
+          required
         />
-        <input 
-          type="date" 
-          name="interviewDate" 
-          value={formData.interviewDate} 
-          onChange={handleInputChange} 
-          required 
+        <input
+          type="date"
+          name="interviewDate"
+          value={formData.interviewDate}
+          onChange={handleInputChange}
+          required
         />
-        <input 
-          type="text" 
-          name="status" 
-          value={formData.status} 
-          onChange={handleInputChange} 
-          required 
+        <input
+          type="text"
+          name="status"
+          value={formData.status}
+          onChange={handleInputChange}
+          required
         />
-        <input 
-          type="text" 
-          name="applicationLink" 
-          value={formData.applicationLink} 
-          onChange={handleInputChange} 
-          placeholder="Application Link" 
+        <input
+          type="text"
+          name="applicationLink"
+          value={formData.applicationLink}
+          onChange={handleInputChange}
+          placeholder="Application Link"
         />
-        <textarea 
-          name="notes" 
-          value={formData.notes} 
-          onChange={handleInputChange} 
-          placeholder="Notes" 
+        <textarea
+          name="notes"
+          value={formData.notes}
+          onChange={handleInputChange}
+          placeholder="Notes"
         />
         <button type="submit">Add Interview</button>
       </form>
