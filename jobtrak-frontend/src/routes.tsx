@@ -10,8 +10,6 @@ const AppRoutes = () => (
       <Route path="/" element={<Dashboard />} />
       {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       <Route path="/interview" element={<Interview />} />
-     
-      {/* <Route path="/calendar_page" element={<Calendar_Page />} /> */}
     </Routes>
   </Router>
 );
