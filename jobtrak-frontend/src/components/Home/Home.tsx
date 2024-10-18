@@ -11,26 +11,16 @@ const Home: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const goToCalendar = () => {
-    navigate('/Calendar'); 
-  };
-
-  const goToDashboard = () => {
-    navigate('/Dashboard'); 
-  };
+  // const goToDashboard = () => {
+  //   navigate('/Dashboard'); 
+  // };
 
   return (
     <header className="header">
       <h1>JobTrak</h1>
       
-      <button>Home</button> 
-   
-      <button onClick={goToDashboard}>Dashboard</button> 
-      
-      <button onClick={goToCalendar}>Calendar</button> 
+      <button>Dashboard</button> 
     
-      <button>Settings</button>
-     
       <button>Interview</button>
       
       <div className="register">

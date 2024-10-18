@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import './Dashboard.css'
+// import './Dashboard.css'
 
 const Dashboard: React.FC = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
@@ -24,3 +24,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+

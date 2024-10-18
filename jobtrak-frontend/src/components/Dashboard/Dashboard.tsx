@@ -75,8 +75,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard">
-      <h1>Interview Dashboard</h1>
-
+  
       {/* Form for adding new interviews */}
       <form onSubmit={handleSubmit}>
         <input 
