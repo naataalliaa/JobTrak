@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { IInterview } from './types/interviewTypes';
 
@@ -9,28 +8,34 @@ interface InterviewFormProps {
 const InterviewForm: React.FC<InterviewFormProps> = ({ onAdd }) => {
   const [formData, setFormData] = useState<Omit<IInterview, '_id'>>({
     companyName: '',
-    interviewDate: new Date(), 
+    interviewDate: new Date(),
+    status: '', 
     applicationLink: '',
     notes: '',
     user: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     
-    const interviewDate = formData.interviewDate
+    const interviewDate = formData.interviewDate;
 
-  
     onAdd({ ...formData, interviewDate });
 
-   
-    setFormData({ companyName: '', interviewDate: new Date(), applicationLink: '', notes: '', user: '' });
+    // Reset form fields
+    setFormData({
+      companyName: '',
+      interviewDate: new Date(),
+      status: '',
+      applicationLink: '',
+      notes: '',
+      user: '',
+    });
   };
 
   return (
@@ -46,11 +51,23 @@ const InterviewForm: React.FC<InterviewFormProps> = ({ onAdd }) => {
       <input
         type="text"
         name="interviewDate"
-        value={formData.interviewDate.toDateString()} 
+        value={formData.interviewDate.toDateString()}
         onChange={handleChange}
         placeholder="Interview Date (MM/DD/YYYY)"
         required
       />
+      
+      <select
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+        required
+      >
+        <option value="Pending">Pending</option>
+        <option value="Applied">Applied</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+
       <input
         type="text"
         name="applicationLink"

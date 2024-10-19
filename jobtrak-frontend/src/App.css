@@ -1,11 +1,83 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #343a40;
+  color: #eaedee;
+  padding: 20px;
+  font-size: 16px;
+  position: sticky;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header h2 {
+  margin: 0px;
+  padding: 20px 15px;
+  cursor: pointer;
+}
+
+.header h2:hover {
+  text-decoration: none;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+  border-radius: 15px;
+  display: flex;
+  margin: 20px;
+  font-size: 15px;
+  width: 200px; /* Adjust width */
+  height: 50px; /* Height of the switcher */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.theme-switcher label {
+  flex: 1; /* Each label takes equal space */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  color: white; /* Default text color */
+}
+
+.light {
+  background-color: #f9f9f9; /* Light theme background */
+}
+
+.dark {
+  background-color: #4d4d4d; /* Dark theme background */
+}
+
+.theme-switcher input[type='radio'] {
+  appearance: none; /* Hide default radio button */
+  display: none; /* Hide the radio buttons */
+}
+
+.theme-switcher label.active {
+  background-color: #6c7ae0; /* Background color for active theme */
+}
+
+
+/* App-logo (if needed) */
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -13,26 +85,40 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
+/* Keyframes for logo spin (if needed) */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Navigation Links */
+.header h2 {
+  font-size: 18px;
+  margin-right: 20px;
+  color: #eaedee;
+
+}
+
+.header h2:hover {
+  color: #5c9acd;
+}
+
+/* Responsive header for mobile */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h2 {
+    margin-top: 10px;
+  }
+
+  .theme-switcher {
+    margin-top: 10px;
   }
 }
