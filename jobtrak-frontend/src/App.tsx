@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import InterviewForm from './components/InterviewForm';
 import InterviewList from './components/InterviewList';
+import Dashboard from './components/Dashboard/Dashboard'; 
+import Login from './components/Login';
+import Registration from './components/Registration';
+import './App.css';
+import axios from 'axios';
 import { IInterview } from './components/types/interviewTypes';
 import { addInterview, fetchInterviews } from './api/interviewAPI';
-import axios from 'axios';
-import Dashboard from './components/Dashboard/Dashboard';
-import './App.css'; 
+import { AuthProvider } from './components/AuthContent';
 
 
-const API_URL = "http://localhost:5002/api";
+const API_URL = "http://localhost:5002/api"; 
 
 const App: React.FC = () => {
   const [interviews, setInterviews] = useState<IInterview[]>([]);
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
 
   useEffect(() => {
     const loadInterviews = async () => {
@@ -30,67 +35,167 @@ const App: React.FC = () => {
 
   const deleteInterview = async (user: string, company: string): Promise<void> => {
     await axios.delete(`${API_URL}/delete/${user}/${company}`);
-    
     setInterviews((prevInterviews) =>
-      prevInterviews.filter(interview => 
+      prevInterviews.filter((interview) =>
         !(interview.user === user && interview.companyName === company)
       )
     );
   };
 
-  // Update theme in the document and localStorage
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  const handleLogin = (token: string) => {
+    setIsAuthenticated(true);
+    localStorage.setItem('token', token);
+    setAuthMode(null);
+  };
+
+  const handleRegister = () => {
+    setAuthMode('login'); // Switch to login after registering
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('token');
+    setAuthMode(null); // Close any open authentication forms
+  };
+
   return (
-    <Router>
-      <div>
-        <header className="header">
-          <h1>JobTrak</h1>
-          <h3>Dashboard</h3>
-          <h2>Interview</h2>
-          <h2>Log in</h2>
-          
-         {/* Theme Switcher */}
-<div className="theme-switcher">
-  <label className={`light ${theme === 'light' ? 'active' : ''}`} title="Light Theme">
-    <input
-      name="theme"
-      type="radio"
-      value="light"
-      checked={theme === 'light'}
-      onChange={() => setTheme('light')}
-    />
-    Light
-  </label>
+    <AuthProvider>
+      <Router>
+        <div>
+          <header className="header">
+            <h1>JobTrak</h1>
+            <h3>Dashboard</h3>
+            {isAuthenticated ? (
+              <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                Log out
+              </h2>
+            ) : (
+              <h2
+                onClick={() => setAuthMode(prev => (prev ? null : 'login'))}
+                style={{ cursor: 'pointer' }}
+              >
+                Log in
+              </h2>
+            )}
 
-  <label className={`dark ${theme === 'dark' ? 'active' : ''}`} title="Dark Theme">
-    <input
-      name="theme"
-      type="radio"
-      value="dark"
-      checked={theme === 'dark'}
-      onChange={() => setTheme('dark')}
-    />
-    Dark
-  </label>
-</div>
+            {/* Theme Switcher */}
+            <div className="theme-switcher">
+              <label
+                className={`light ${theme === 'light' ? 'active' : ''}`}
+                title="Light Theme"
+              >
+                <input
+                  name="theme"
+                  type="radio"
+                  value="light"
+                  checked={theme === 'light'}
+                  onChange={() => setTheme('light')}
+                />
+                Light
+              </label>
+              <label
+                className={`dark ${theme === 'dark' ? 'active' : ''}`}
+                title="Dark Theme"
+              >
+                <input
+                  name="theme"
+                  type="radio"
+                  value="dark"
+                  checked={theme === 'dark'}
+                  onChange={() => setTheme('dark')}
+                />
+                Dark
+              </label>
+            </div>
+          </header>
 
-        </header>
+          {/* Authentication Form */}
+          {authMode && !isAuthenticated && (
+            <div className="auth-form">
+              {authMode === 'login' && (
+                <>
+                  <Login onLogin={handleLogin} />
+                  <p>
+                    Don't have an account?{' '}
+                    <span
+                      onClick={() => setAuthMode('register')}
+                      style={{ cursor: 'pointer', color: 'blue' }}
+                    >
+                      Register
+                    </span>
+                  </p>
+                </>
+              )}
+              {authMode === 'register' && (
+                <>
+                  <Registration onRegister={handleRegister} />
+                  <p>
+                    Already have an account?{' '}
+                    <span
+                      onClick={() => setAuthMode('login')}
+                      style={{ cursor: 'pointer', color: 'blue' }}
+                    >
+                      Log in
+                    </span>
+                  </p>
+                </>
+              )}
+              <button onClick={() => setAuthMode(null)}>Close</button>
+            </div>
+          )}
 
-        
-        {/* <InterviewForm onAdd={handleAddInterview} /> */}
+          <Routes>
+            {/* Landing Page */}
+            <Route
+              path="/"
+              element={isAuthenticated ? <Navigate to="/dashboard" /> : (
+                <div className="landing-page">
+                  <h1>Welcome to JobTrak!</h1>
+                  <p>Your personal job application tracker.</p>
+                </div>
+  )}
+            />
 
-
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/interview" element={<InterviewList interviews={interviews} onDelete={deleteInterview} />} />
-          <Route path="/add-interview" element={<InterviewForm onAdd={handleAddInterview} />} />
-        </Routes>
-      </div>
-    </Router>
+            {/* Dashboard and Interview Pages */}
+            <Route
+              path="/dashboard"
+              element={
+                isAuthenticated ? (
+                  <Dashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/interview"
+              element={
+                isAuthenticated ? (
+                  <InterviewList interviews={interviews} onDelete={deleteInterview} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/add-interview"
+              element={
+                isAuthenticated ? (
+                  <InterviewForm onAdd={handleAddInterview} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 
