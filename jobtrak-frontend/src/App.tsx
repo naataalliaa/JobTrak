@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import InterviewForm from './components/InterviewForm';
 import InterviewList from './components/InterviewList';
 import Dashboard from './components/Dashboard/Dashboard'; 
@@ -10,6 +10,15 @@ import axios from 'axios';
 import { IInterview } from './components/types/interviewTypes';
 import { addInterview, fetchInterviews } from './api/interviewAPI';
 import { AuthProvider } from './components/AuthContent';
+import Home from './components/Home/Home';
+import Interview from './components/Interview/Interview';
+import Amazon from './components/Interview/Companies/Amazon';
+import Google from './components/Interview/Companies/Google';
+import Apple from './components/Interview/Companies/Apple';
+import Netflix from './components/Interview/Companies/Netflix';
+import Spotify from './components/Interview/Companies/Spotify';
+import GitHub from './components/Interview/Companies/GitHub';
+
 
 
 const API_URL = "http://localhost:5002/api"; 
@@ -68,8 +77,15 @@ const App: React.FC = () => {
       <Router>
         <div>
           <header className="header">
-            <h1>JobTrak</h1>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h1>Jobtrak</h1>
+            </Link>
+            <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h3>Interview</h3>
+            </Link>
+            <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h3>Dashboard</h3>
+            </Link>
             {isAuthenticated ? (
               <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>
                 Log out
@@ -150,16 +166,38 @@ const App: React.FC = () => {
           )}
 
           <Routes>
-            {/* Landing Page */}
-            <Route
-              path="/"
-              element={isAuthenticated ? <Navigate to="/dashboard" /> : (
-                <div className="landing-page">
-                  <h1>Welcome to JobTrak!</h1>
-                  <p>Your personal job application tracker.</p>
-                </div>
-  )}
-            />
+          {/* Home Page */}
+          <Route
+            path="/home"
+            element={<Home />}
+          />
+            
+          {/* Interview */}
+          <Route
+            path="/interview"
+            element={
+              isAuthenticated ? (
+                <Interview />
+              ) : (
+                <Navigate to= "/login" />
+              )
+            }
+          />
+          <Route path="/amazon" element={<Amazon />} />
+          <Route path="/google" element={<Google />} />
+          <Route path="/apple" element={<Apple />} />
+          <Route path="/netflix" element={<Netflix />} />
+          <Route path="/spotify" element={<Spotify />} />
+          <Route path="/github" element={<GitHub />} />
+
+
+          {/* Landing Page */}
+          <Route
+            path="/"
+            element={isAuthenticated ? <Navigate to="/dashboard" /> : (
+                <Navigate to="/home"/>
+          )}
+          />
 
             {/* Dashboard and Interview Pages */}
             <Route
