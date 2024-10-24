@@ -80,11 +80,11 @@ const App: React.FC = () => {
             <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
               <h1>Jobtrak</h1>
             </Link>
-            <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <h3>Interview</h3>
-            </Link>
             <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h3>Dashboard</h3>
+            </Link>
+            <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h3>Interview</h3>
             </Link>
             {isAuthenticated ? (
               <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>

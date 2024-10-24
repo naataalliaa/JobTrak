@@ -1,0 +1,99 @@
+.company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.apple-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+
+
+.google-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+
+.netflix-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+
+.spotify-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 25px;
+}
+
+.github-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 25px;
+}
+
+.amazon-logo {
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.category-container {
+    margin-bottom: 20px;
+}
+
+.category-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-button.active {
+    background-color: #343a40;
+    color: white;
+}
+
+.category-button:hover {
+    background-color: #343a40;
+    color: white;
+}
+
+.questions-container {
+    margin-top: 20px;
+}
+
+.questions-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.question-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+}
+
+.question-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.question-number {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.question-text {
+    flex: 1;
+}

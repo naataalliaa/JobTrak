@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Interview.css'; // Import the CSS file for styling
+import './Interview.css'; // Assuming your CSS file is named Interview.css
 
 const companies = [
     { name: 'Amazon', logo: '/amazon-logo.png', path: '/amazon', questions: ['Technical Questions', 'Coding Questions', 'Behavioral Questions'] },
@@ -38,12 +38,12 @@ const Dashboard: React.FC = () => {
             <main className="company-grid">
                 {filteredCompanies.map((company) => (
                     <Link to={company.path} key={company.name} className="company-card">
-                        <img src={company.logo} alt={`${company.name} Logo`} />
-                        <h3>{company.name}</h3>
-                        {company.questions.map((question, index) => (
-                            <p key={index}>{question}</p>
-                        ))}
-                    </Link>
+                    <img src={company.logo} alt={`${company.name} Logo`} />
+                    <h3>{company.name}</h3>
+                    {company.questions.map((question, index) => (
+                        <p key={index}>{question}</p>
+                    ))}
+                </Link>
                 ))}
             </main>
         </div>
