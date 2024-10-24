@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './company.css'; // Assuming your CSS file is named company.css
+import './company.css';
 
 const categories = [
     {

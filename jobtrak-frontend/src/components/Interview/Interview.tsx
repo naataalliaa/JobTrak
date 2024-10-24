@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Interview.css'; // Assuming your CSS file is named Interview.css
+import './Interview.css';
 
 const companies = [
     { name: 'Amazon', logo: '/amazon-logo.png', path: '/amazon', questions: ['Technical Questions', 'Coding Questions', 'Behavioral Questions'] },
