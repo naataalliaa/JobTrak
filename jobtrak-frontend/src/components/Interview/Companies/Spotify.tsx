@@ -33,11 +33,19 @@ const categories = [
     }
 ];
 
-const Spotify: React.FC = () => {
+const Spotify:  React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>(categories[0].name);
+    const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({});
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
+    };
+
+    const toggleDropdown = (index: number) => {
+        setDropdowns(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
     };
 
     const selectedQuestions = categories.find(category => category.name === selectedCategory)?.questions || [];
@@ -45,7 +53,7 @@ const Spotify: React.FC = () => {
     return (
         <div className="company-interview">
             <header className="company-header">
-                <img src={'./spotify-logo.png'} alt="Company Logo" className="spotify-logo" />
+                <img src={'./company-logos/spotify-logo.png'} alt="Company Logo" className="spotify-logo" />
                 <h2>Spotify Interview Questions</h2>
             </header>
             <div className="category-container">
@@ -66,6 +74,14 @@ const Spotify: React.FC = () => {
                         <li key={index} className="question-item">
                             <div className="question-number">{index + 1}.</div>
                             <div className="question-text">{question}</div>
+                            <button onClick={() => toggleDropdown(index)}>
+                                {dropdowns[index] ? 'Hide Details' : 'Show Details'}
+                            </button>
+                            {dropdowns[index] && (
+                                <div className="dropdown-content">
+                                    {/* Add your dropdown content here */}
+                                </div>
+                            )}
                         </li>
                     ))}
                 </ul>

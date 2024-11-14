@@ -18,6 +18,12 @@ import Apple from './components/Interview/Companies/Apple';
 import Netflix from './components/Interview/Companies/Netflix';
 import Spotify from './components/Interview/Companies/Spotify';
 import GitHub from './components/Interview/Companies/GitHub';
+import Microsoft from './components/Interview/Companies/Microsoft';
+import Uber from './components/Interview/Companies/Uber';
+import Nvidia from './components/Interview/Companies/Nvidia';
+import Meta from './components/Interview/Companies/Meta';
+import Tesla from './components/Interview/Companies/Tesla';
+import Paypal from './components/Interview/Companies/Paypal';
 
 
 
@@ -189,6 +195,12 @@ const App: React.FC = () => {
           <Route path="/netflix" element={<Netflix />} />
           <Route path="/spotify" element={<Spotify />} />
           <Route path="/github" element={<GitHub />} />
+          <Route path="/microsoft" element={<Microsoft />} />
+          <Route path="/uber" element={<Uber />} />
+          <Route path="/nvidia" element={<Nvidia />} />
+          <Route path="/meta" element={<Meta />} />
+          <Route path="/tesla" element={<Tesla />} />
+          <Route path="/paypal" element={<Paypal />} />
 
 
           {/* Landing Page */}

@@ -48,6 +48,15 @@ input[type="text"] {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.2s ease;
+    will-change: transform; 
+    line-height: 1.5;
+}
+
+
+.company-card:hover {
+    text-decoration: none;
+    transform: scale(1.05);
 }
 
 .company-card img {
@@ -57,7 +66,8 @@ input[type="text"] {
 }
 
 .company-card h3 {
-    margin: 10px 0;
+    margin: 12px 0;
+    color: black;
 }
 
 .company-card p {
