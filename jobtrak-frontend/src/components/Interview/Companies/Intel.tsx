@@ -33,7 +33,7 @@ const categories = [
     }
 ];
 
-const Spotify:  React.FC = () => {
+const Intel: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>(categories[0].name);
     const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({});
 
@@ -53,8 +53,8 @@ const Spotify:  React.FC = () => {
     return (
         <div className="company-interview">
             <header className="company-header">
-                <img src={'./company-logos/spotify-logo.webp'} alt="Company Logo" className="spotify-logo" />
-                <h2>Spotify Interview Questions</h2>
+                <img src={'./company-logos/intel-logo.webp'} alt="Company Logo" className="intel-logo" />
+                <h2>Intel Interview Questions</h2>
             </header>
             <div className="category-container">
                 {categories.map(category => (
@@ -90,4 +90,4 @@ const Spotify:  React.FC = () => {
     );
 };
 
-export default Spotify;
+export default Intel;

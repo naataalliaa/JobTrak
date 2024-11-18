@@ -10,7 +10,6 @@ import axios from 'axios';
 import { IInterview } from './components/types/interviewTypes';
 import { addInterview, fetchInterviews } from './api/interviewAPI';
 import { AuthProvider } from './components/AuthContent';
-import Home from './components/Home/Home';
 import Interview from './components/Interview/Interview';
 import Amazon from './components/Interview/Companies/Amazon';
 import Google from './components/Interview/Companies/Google';
@@ -18,7 +17,18 @@ import Apple from './components/Interview/Companies/Apple';
 import Netflix from './components/Interview/Companies/Netflix';
 import Spotify from './components/Interview/Companies/Spotify';
 import GitHub from './components/Interview/Companies/GitHub';
-
+import Microsoft from './components/Interview/Companies/Microsoft';
+import Uber from './components/Interview/Companies/Uber';
+import Nvidia from './components/Interview/Companies/Nvidia';
+import Meta from './components/Interview/Companies/Meta';
+import Tesla from './components/Interview/Companies/Tesla';
+import Paypal from './components/Interview/Companies/Paypal';
+import Oracle from './components/Interview/Companies/Oracle';
+import PaloAlto from './components/Interview/Companies/PaloAlto';
+import Micron from './components/Interview/Companies/Micron';
+import Intel from './components/Interview/Companies/Intel';
+import Qualcomm from './components/Interview/Companies/Qualcomm';
+import Cisco from './components/Interview/Companies/Cisco';
 
 
 const API_URL = "http://localhost:5002/api"; 
@@ -77,9 +87,7 @@ const App: React.FC = () => {
       <Router>
         <div>
           <header className="header">
-            <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
               <h1>Jobtrak</h1>
-            </Link>
             <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h3>Dashboard</h3>
             </Link>
@@ -166,11 +174,6 @@ const App: React.FC = () => {
           )}
 
           <Routes>
-          {/* Home Page */}
-          <Route
-            path="/home"
-            element={<Home />}
-          />
             
           {/* Interview */}
           <Route
@@ -179,23 +182,36 @@ const App: React.FC = () => {
               isAuthenticated ? (
                 <Interview />
               ) : (
-                <Navigate to= "/login" />
+                <Navigate to= "/" />
               )
             }
           />
-          <Route path="/amazon" element={<Amazon />} />
-          <Route path="/google" element={<Google />} />
-          <Route path="/apple" element={<Apple />} />
-          <Route path="/netflix" element={<Netflix />} />
-          <Route path="/spotify" element={<Spotify />} />
-          <Route path="/github" element={<GitHub />} />
+            {/* Company-specific Routes */}
+            <Route path="/amazon" element={isAuthenticated ? <Amazon /> : <Navigate to="/login" />} />
+            <Route path="/google" element={isAuthenticated ? <Google /> : <Navigate to="/login" />} />
+            <Route path="/apple" element={isAuthenticated ? <Apple /> : <Navigate to="/login" />} />
+            <Route path="/netflix" element={isAuthenticated ? <Netflix /> : <Navigate to="/login" />} />
+            <Route path="/spotify" element={isAuthenticated ? <Spotify /> : <Navigate to="/login" />} />
+            <Route path="/github" element={isAuthenticated ? <GitHub /> : <Navigate to="/login" />} />
+            <Route path="/microsoft" element={isAuthenticated ? <Microsoft /> : <Navigate to="/login" />} />
+            <Route path="/uber" element={isAuthenticated ? <Uber /> : <Navigate to="/login" />} />
+            <Route path="/nvidia" element={isAuthenticated ? <Nvidia /> : <Navigate to="/login" />} />
+            <Route path="/meta" element={isAuthenticated ? <Meta /> : <Navigate to="/login" />} />
+            <Route path="/tesla" element={isAuthenticated ? <Tesla /> : <Navigate to="/login" />} />
+            <Route path="/paypal" element={isAuthenticated ? <Paypal /> : <Navigate to="/login" />} />
+            <Route path="/oracle" element={isAuthenticated ? <Oracle /> : <Navigate to="/login" />} />
+            <Route path="/palo-alto" element={isAuthenticated ? <PaloAlto /> : <Navigate to="/login" />} />
+            <Route path="/micron" element={isAuthenticated ? <Micron /> : <Navigate to="/login" />} />
+            <Route path="/intel" element={isAuthenticated ? <Intel /> : <Navigate to="/login" />} />
+            <Route path="/qualcomm" element={isAuthenticated ? <Qualcomm /> : <Navigate to="/login" />} />
+            <Route path="/cisco" element={isAuthenticated ? <Cisco /> : <Navigate to="/login" />} />
 
 
           {/* Landing Page */}
           <Route
             path="/"
             element={isAuthenticated ? <Navigate to="/dashboard" /> : (
-                <Navigate to="/home"/>
+                <Navigate to="/"/>
           )}
           />
 
@@ -206,7 +222,7 @@ const App: React.FC = () => {
                 isAuthenticated ? (
                   <Dashboard />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to="/" />
                 )
               }
             />

@@ -17,7 +17,7 @@ body {
 
 .dashboard-header h2 {
     font-size: 1.5em;
-    color: gray;
+    color: rgb(0, 0, 0);
 }
 
 .search-container {
@@ -42,12 +42,23 @@ input[type="text"] {
     margin: 0 auto;
 }
 
+.company-card h3 {
+    margin: 10px 0;
+    color: black; /* Change the color to black */
+}
+
 .company-card {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: 0.2 ease;}
+
+.company-card:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    text-decoration: none;
 }
 
 .company-card img {

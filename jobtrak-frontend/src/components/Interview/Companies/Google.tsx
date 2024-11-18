@@ -35,9 +35,17 @@ const categories = [
 
 const Google: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>(categories[0].name);
+    const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({});
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
+    };
+
+    const toggleDropdown = (index: number) => {
+        setDropdowns(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
     };
 
     const selectedQuestions = categories.find(category => category.name === selectedCategory)?.questions || [];
@@ -45,7 +53,7 @@ const Google: React.FC = () => {
     return (
         <div className="company-interview">
             <header className="company-header">
-                <img src={'./google-logo.png'} alt="Company Logo" className="google-logo" />
+                <img src={'./company-logos/google-logo.webp'} alt="Company Logo" className="google-logo" />
                 <h2>Google Interview Questions</h2>
             </header>
             <div className="category-container">
@@ -66,6 +74,14 @@ const Google: React.FC = () => {
                         <li key={index} className="question-item">
                             <div className="question-number">{index + 1}.</div>
                             <div className="question-text">{question}</div>
+                            <button className="dropdown-button" onClick={() => toggleDropdown(index)}>
+                                {dropdowns[index] ? <img src={'./nav/uparrow.webp'} style={{ width: '15px', height: '15px'}} alt="Up Arrow"/> : <img src={'./nav/downarrow.webp'} style={{ width: '15px', height: '15px'}} alt="Down Arrow"/>}
+                            </button>
+                            {dropdowns[index] && (
+                                <div className="dropdown-content">
+                                    {/* Add your dropdown content here */}
+                                </div>
+                            )}
                         </li>
                     ))}
                 </ul>
