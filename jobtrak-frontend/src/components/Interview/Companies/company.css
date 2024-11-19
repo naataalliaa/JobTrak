@@ -1,0 +1,216 @@
+.company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.apple-logo {
+    width: 175px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 35px;
+    margin-bottom: -10px;
+}
+
+.microsoft-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -10px;
+    margin-bottom: -70px;
+}
+
+.uber-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 5px;
+    margin-bottom: -75px;
+}
+
+.nvidia-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 35px;
+    margin-bottom: -50px;
+}
+
+.meta-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -10px;
+    margin-bottom: -85px;
+}
+
+.tesla-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 35px;
+    margin-bottom: -10px;
+}
+
+.paypal-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -5px;
+    margin-bottom: -80px;
+}
+
+.google-logo {
+    width: 150px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+.netflix-logo {
+    width: 180px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 30px;
+    margin-bottom: -10px;
+}
+
+.spotify-logo {
+    width: 175px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 35px;
+    margin-bottom: 0px;
+}
+
+.oracle-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -20px;
+    margin-bottom: -75px;
+}
+.palo-alto-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;;
+    margin-top: -10px;
+    margin-bottom: -60px;
+}
+
+.micron-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -15px;
+    margin-bottom: -50px;
+}
+
+.intel-logo {
+    width: 175px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 10px;
+    margin-bottom: -50px;
+}
+
+.qualcomm-logo {
+    width: 275px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: -60px;
+    margin-bottom: -80px;
+}
+
+.cisco-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 0px;
+    margin-bottom: -30px;
+}
+
+.github-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 35px;
+    margin-bottom: 0px;
+}
+
+.amazon-logo {
+    width: 200px;
+    margin-left: center;
+    margin-right: center;
+    margin-top: 0px;
+    margin-bottom: -50px;
+}
+
+.category-container {
+    margin-bottom: 20px;
+}
+
+.category-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-button.active {
+    background-color: #343a40;
+    color: white;
+}
+
+.category-button:hover {
+    background-color: #343a40;
+    color: white;
+}
+
+.questions-container {
+    margin-top: 20px;
+}
+
+.questions-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.question-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+}
+
+.question-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.question-number {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.question-text {
+    flex: 1;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.dropdown-button img {
+    vertical-align: middle;
+}
