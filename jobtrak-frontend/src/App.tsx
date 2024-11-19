@@ -119,33 +119,15 @@ const App: React.FC = () => {
             <div className="auth-form">
               {authMode === 'login' && (
                 <>
-                  <Login onLogin={handleLogin} />
-                  <p>
-                    Don't have an account?{' '}
-                    <span
-                      onClick={() => setAuthMode('register')}
-                      style={{ cursor: 'pointer', color: 'blue' }}
-                    >
-                      Register
-                    </span>
-                  </p>
-                </>
+                  <Login onLogin={handleLogin} setAuthMode={setAuthMode} />
+                  </>
               )}
               {authMode === 'register' && (
                 <>
-                  <Registration onRegister={handleRegister} />
-                  <p>
-                    Already have an account?{' '}
-                    <span
-                      onClick={() => setAuthMode('login')}
-                      style={{ cursor: 'pointer', color: 'blue' }}
-                    >
-                      Log in
-                    </span>
-                  </p>
+                  <Registration onRegister={handleRegister} setAuthMode={setAuthMode}/>
+                  
                 </>
               )}
-              <button onClick={() => setAuthMode(null)}>Close</button>
             </div>
           )}
 
