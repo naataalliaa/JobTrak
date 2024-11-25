@@ -10,7 +10,8 @@ const categories = [
             'What is Breadth-First Search (BFS)?', //source: https://interviewing.io/spotify-interview-questions
             'Can you explain the concept of MITM (Man-In-The-Middle) attacks and how to prevent them?', //source: https://prepfully.com/interview-guides/spotify-software-engineer
             'Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. For example, "A man, a plan, a canal: Panama" is a palindrome, but "race a car" is not.' //source: https://prepfully.com/interview-guides/spotify-software-engineer
-        ]
+        ],
+        answers: []
     },
     {
         name: 'Technical Questions',
@@ -20,7 +21,8 @@ const categories = [
             'Write a function to manipulate a pandas.DataFrame.', //source: https://topinterview.com/interview-advice/spotify-interview-questions-and-answers
             'Whats your experience with music licensing?', //source: https://4dayweek.io/interview-process/spotify-interview
             'List some unique contributions you can bring to Spotify.' //source: https://4dayweek.io/interview-process/spotify-interview
-        ]
+        ],
+        answers: []
     },
     {
         name: 'Behavioral Questions',
@@ -29,7 +31,8 @@ const categories = [
             'Describe a research project and the impact it had on the company.', //source: https://topinterview.com/interview-advice/spotify-interview-questions-and-answers
             'What are some things you couldve done better in your data projects?', //source: https://topinterview.com/interview-advice/spotify-interview-questions-and-answers
             'How comfortable are you working out of your comfort zone?' //source: https://topinterview.com/interview-advice/spotify-interview-questions-and-answers
-        ]
+        ],
+        answers: []
     }
 ];
 
@@ -39,6 +42,7 @@ const Meta: React.FC = () => {
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
+        setDropdowns({}); // Reset dropdowns when category changes
     };
 
     const toggleDropdown = (index: number) => {
@@ -48,7 +52,9 @@ const Meta: React.FC = () => {
         }));
     };
 
-    const selectedQuestions = categories.find(category => category.name === selectedCategory)?.questions || [];
+    const selectedCategoryData = categories.find(category => category.name === selectedCategory);
+    const selectedQuestions = selectedCategoryData?.questions || [];
+    const selectedAnswers = selectedCategoryData?.answers || [];
 
     return (
         <div className="company-interview">
@@ -72,15 +78,19 @@ const Meta: React.FC = () => {
                 <ul className="questions-list">
                     {selectedQuestions.map((question, index) => (
                         <li key={index} className="question-item">
-                            <div className="question-number">{index + 1}.</div>
-                            <div className="question-text">{question}</div>
-                            <button className="dropdown-button" onClick={() => toggleDropdown(index)}>
-                                {dropdowns[index] ? <img src={'./nav/uparrow.webp'} style={{ width: '15px', height: '15px'}} alt="Up Arrow"/> : <img src={'./nav/downarrow.webp'} style={{ width: '15px', height: '15px'}} alt="Down Arrow"/>}
-                            </button>
-                            {dropdowns[index] && (
-                                <div className="dropdown-content">
-                                    {/* Add your dropdown content here */}
+                            <div className="question-content">
+                                <div className={`question-text ${dropdowns[index] ? 'unbold' : ''}`}>
+                                    {dropdowns[index] && <strong>Question:</strong>}
+                                    {dropdowns[index] && <br />}
+                                    {dropdowns[index] && <br />}
+                                    {question}
                                 </div>
+                                <button className="dropdown-button" onClick={() => toggleDropdown(index)}>
+                                    {dropdowns[index] ? <img src={'./nav/uparrow.webp'} style={{ width: '15px', height: '15px'}} alt="Up Arrow"/> : <img src={'./nav/downarrow.webp'} style={{ width: '15px', height: '15px'}} alt="Down Arrow"/>}
+                                </button>
+                            </div>
+                            {dropdowns[index] && (
+                                <div className="dropdown-content" dangerouslySetInnerHTML={{ __html: selectedAnswers[index] }} />
                             )}
                         </li>
                     ))}
