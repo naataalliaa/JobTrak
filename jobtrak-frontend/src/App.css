@@ -15,9 +15,12 @@ body {
   align-items: center;
   background-color: #343a40;
   color: #eaedee;
-  padding: 20px;
+  padding: 10px;
   font-size: 16px;
   position: sticky;
+  top: 0;
+  z-index: 99;
+  height: 60px;
 }
 
 .header h1 {
@@ -72,13 +75,6 @@ body {
   background-color: #6c7ae0; /* Background color for active theme */
 }
 
-
-/* App-logo (if needed) */
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-} */
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -103,7 +99,7 @@ body {
 
 }
 
-.header h2:hover {
+.header h3:hover {
   color: #5c9acd;
 }
 

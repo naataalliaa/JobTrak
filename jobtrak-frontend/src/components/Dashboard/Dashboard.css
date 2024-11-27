@@ -1,7 +1,7 @@
 .table-container {
     margin-top: 20px;
     background-color: #f4f4f4;  /* Light gray background for the container */
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: none;  /* No shadow for a more subtle look */
 }
@@ -96,31 +96,33 @@ form button {
 
 .form-row {
     display: flex;
-    gap: 20px;  /* Increase gap for better spacing between inputs */
-    flex-wrap: wrap;  /* Allow inputs to wrap when space is tight */
+    gap: 20px;  /* Space between inputs */
+    flex-wrap: wrap;  /* Allow wrapping of inputs if screen size is reduced */
     padding-top: 20px;
-}
-
-.form-row input,
-.form-row select {
-    flex: 1 1 calc(33.333% - 20px);  /* Flex with a maximum of 3 inputs per row */
-}
-
-textarea {
+  }
+  
+  .form-row input,
+  .form-row select {
+    flex: 1 1 calc(25% - 20px);  /* 4 inputs per row, flexible width with padding */
+    max-width: calc(25% - 20px); /* Ensure inputs do not grow beyond this size */
+  }
+  
+  textarea {
     width: 100%;
-    height: 120px;  /* Increase height for better readability */
-}
-
-form button.submit {
+    height: 180px;  /* Increase height for better readability */
+    margin-top: 20px;
+  }
+  
+  /* Button Styling */
+  button.submit {
     margin-top: 20px;
     background-color: #007bff;  /* Formal blue for submit button */
     padding: 12px 20px;
     border: none;
     cursor: pointer;
     border-radius: 4px;
-    margin-left: 10px;
     font-size: 16px;
-}
+  }
 
 form button.submit:hover {
     background-color: #0056b3;  /* Darker blue on hover */

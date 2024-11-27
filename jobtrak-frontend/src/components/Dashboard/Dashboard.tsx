@@ -68,8 +68,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
       ...prevData,
       [name]:
         name === 'interviewDate' && value
-          ? new Date(value)
-         // ? new Date(value).toLocaleDateString('en-US')
+         // ? new Date(value)
+          ? new Date(value).toLocaleDateString('en-US')
           : value,
           user: currentUser,
     }));
@@ -88,8 +88,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
         ...formData,
         interviewDate:
           typeof formData.interviewDate === 'string'
-            ? formData.interviewDate
-            : formData.interviewDate.toISOString(),
+            ? new Date(formData.interviewDate)
+            : formData.interviewDate,
       };
 
       await handleAddInterview(formattedFormData);

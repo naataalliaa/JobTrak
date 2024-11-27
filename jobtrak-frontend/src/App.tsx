@@ -88,12 +88,12 @@ const App: React.FC = () => {
       <Router>
         <div>
           <header className="header">
-              <h1>Jobtrak</h1>
+              <h1>JobTrak</h1>
             <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h3>Dashboard</h3>
+            <h3>DASHBOARD</h3>
             </Link>
             <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <h3>Interview</h3>
+              <h3>INTERVIEW</h3>
             </Link>
             {isAuthenticated ? (
               <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>
