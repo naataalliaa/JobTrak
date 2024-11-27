@@ -16,17 +16,38 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5002/api/auth/login', { username, password });
-      console.log('Response:', response.data); // Log to check the response
-      onLogin(response.data.token); // Call the login function
-      localStorage.setItem('token', response.data.token); // Store the token
-    } catch (error) {
-      setErrorMessage('Invalid credentials. Please try again.');
+
+      // Log the response data to inspect the returned object
+      console.log('Response:', response.data); 
+
+      // Ensure the response has the token and store it in localStorage
+      if (response.data.token) {
+        // On successful login, store the token and username
+        onLogin(response.data.token); // Call the login function
+        localStorage.setItem('token', response.data.token); // Store the token
+        localStorage.setItem('username', username); // Store the username (important for form submission)
+        
+        // Optionally, redirect or perform further actions (like navigating to a dashboard)
+        // window.location.href = '/dashboard'; // Example redirect (uncomment if needed)
+      } else {
+        setErrorMessage('Invalid credentials. Please try again.');
+      }
+
+    } catch (error: any) {
+      // Check if error.response exists to provide more specific error message
+      if (error.response) {
+        setErrorMessage(error.response.data.message || 'Invalid credentials. Please try again.');
+      } else {
+        setErrorMessage('Network error. Please try again later.');
+      }
     }
   };
 
   return (
     <div>
-      <h1 className="job-application-title">Job Application Tracker: A Smart Website to Manage Job Applications, Interview Questions, and Offers</h1>
+      <h1 className="job-application-title">
+        Job Application Tracker: A Smart Website to Manage Job Applications, Interview Questions, and Offers
+      </h1>
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <input
