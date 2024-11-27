@@ -3,8 +3,8 @@ import axios from 'axios';
 import './Login.css';
 
 interface LoginProps {
-  onLogin: (token: string) => void;
-  setAuthMode: (mode: 'login' | 'register') => void; // Include setAuthMode as a prop
+  onLogin: (token: string, user: string) => void;
+  setAuthMode: (mode: 'login' | 'register') => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
@@ -23,10 +23,13 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
       // Ensure the response has the token and store it in localStorage
       if (response.data.token) {
         // On successful login, store the token and username
-        onLogin(response.data.token); // Call the login function
+        onLogin(response.data.token, username); // Call the login function
         localStorage.setItem('token', response.data.token); // Store the token
-        localStorage.setItem('username', username); // Store the username (important for form submission)
-        
+        localStorage.setItem('username', username); // Store the username
+
+        // Log the user data to console for inspection (if needed)
+        console.log('Logged in User:', { token: response.data.token, username });
+
         // Optionally, redirect or perform further actions (like navigating to a dashboard)
         // window.location.href = '/dashboard'; // Example redirect (uncomment if needed)
       } else {

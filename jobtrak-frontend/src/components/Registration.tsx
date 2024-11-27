@@ -23,13 +23,21 @@ const Registration: React.FC<RegistrationProps> = ({ onRegister, setAuthMode }) 
     }
 
     try {
-      await axios.post('http://localhost:5002/api/auth/register', { username, password });
+      const response = await axios.post('http://localhost:5002/api/auth/register', { username, password });
+      
+      if (response.data.token && response.data.user) {
+        localStorage.setItem('token', response.data.token); // Store the token
+        localStorage.setItem('currentUser', response.data.user); // Store the username
+  
       setMessage('Registration successful! Please login.');
       setAuthMode('login'); // Switch to login after successful registration
-    } catch (error) {
+    } else {
       setMessage('Error during registration. Please try again.');
     }
-  };
+  } catch (error) {
+    setMessage('Error during registration. Please try again.');
+  }
+};
 
   return (
     <div className="registration-container">

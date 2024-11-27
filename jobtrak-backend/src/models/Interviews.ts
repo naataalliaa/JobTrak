@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { v4 as uuidv4 } from 'uuid'; // Import UUID for random user ID
 
 export interface Interview extends Document {
   _id: string;
@@ -17,7 +16,7 @@ const interviewSchema = new mongoose.Schema({
   interviewDate: { type: Date, required: true },
   applicationLink: { type: String },
   notes: { type: String }, // Make notes optional here as well
-  user: { type: String, default: () => uuidv4(), required: true }, // Use UUID to generate user field
+  user: { type: String, required: true }, 
   status: { type: String, required: true },
 });
 

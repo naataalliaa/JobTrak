@@ -24,7 +24,12 @@ const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 
 app.get('/', (req, res) => {
-    res.send('Hello World from the backend!');
-  });
+  res.send('Hello World from the backend!');
+});
+
+app.get('/api/:username', (req, res) => {
+   const { username } = req.params;
+   // Logic to fetch data for the user based on the username
+});
 
 export const myApp = app

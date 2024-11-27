@@ -69,7 +69,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
       [name]:
         name === 'interviewDate' && value
          // ? new Date(value)
-          ? new Date(value).toLocaleDateString('en-US')
+          //? new Date(value).toLocaleDateString('en-US')
+          ? new Date(value)
           : value,
           user: currentUser,
     }));
@@ -87,12 +88,14 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
       const formattedFormData = {
         ...formData,
         interviewDate:
-          typeof formData.interviewDate === 'string'
-            ? new Date(formData.interviewDate)
+           formData.interviewDate instanceof Date
+            ? formData.interviewDate.toISOString()
             : formData.interviewDate,
       };
 
-      await handleAddInterview(formattedFormData);
+      //await handleAddInterview(formattedFormData);
+      // Post the interview
+    await axios.post(`http://localhost:5002/api/`, formattedFormData);
 
       setFormData({
         companyName: '',
@@ -122,6 +125,16 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
       console.error('Error deleting interview:', error);
     }
   };
+
+  const username = 'natalia';  // Replace with dynamic username, e.g., from state or props
+
+  axios.get(`http://localhost:5002/api/${username}`)
+      .then(response => {
+          console.log(`Fetched interviews for ${username}:`, response.data);
+      })
+      .catch(error => {
+          console.error(`Error fetching interviews for ${username}:`, error.message);
+      });
 
   return (
     <div className="dashboard">

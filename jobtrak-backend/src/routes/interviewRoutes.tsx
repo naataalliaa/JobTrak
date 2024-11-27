@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { Interview } from '../models/Interviews'; // Adjust the import path as needed
+import user from '../models/user';
 const mongoose = require('mongoose');
 
 const router = Router();
@@ -39,7 +40,29 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
+// Define the type for the params in the URL
+interface UserParams {
+  username: string;  // Declare that the 'user' parameter is a string
+}
 
+// GET /api/:user - Retrieve interviews for a specific user
+router.get('/:username', async (req: Request<{ username: string }>, res: Response) => {
+  try {
+      const { username } = req.params;  // Get the user from the URL parameter
+
+      // Fetch interviews for the specified user
+      const userInterviews = await Interview.find({ user: username });
+
+      if (userInterviews.length === 0) {
+          return res.status(404).json({ message: `No interviews found for ${username}` });
+      }
+
+      res.status(200).json(userInterviews);  // Return the user's interviews
+  } catch (err: any) {
+      //console.error(`Error fetching interviews for ${username}:`, err.message);
+      res.status(500).json({ error: 'Failed to fetch interviews for the specified user.' });
+  }
+});
 
 // POST /api/ - Create a new interview
 router.post('/find/:user/:company', async (req: Request, res: Response) => {

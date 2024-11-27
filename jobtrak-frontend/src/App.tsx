@@ -38,7 +38,7 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
-  const [currentUser, setCurrentUser] = useState<string>('');
+  const [currentUser, setCurrentUser] = useState<string>(localStorage.getItem('currentUser') || '');
 
   useEffect(() => {
     const loadInterviews = async () => {
@@ -67,9 +67,10 @@ const App: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const handleLogin = (token: string) => {
+  const handleLogin = (token: string, user: string) => {
     setIsAuthenticated(true);
     localStorage.setItem('token', token);
+    localStorage.setItem('currentUser', user);
     setAuthMode(null);
   };
 
@@ -80,6 +81,7 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     setAuthMode(null); // Close any open authentication forms
   };
 
