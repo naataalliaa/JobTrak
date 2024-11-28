@@ -39,12 +39,12 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
   };
 
   return (
-    <div>
-      <h1 className="job-application-title">
+    <div className="login-container">
+      {/* <h1 className="job-application-title">
         Job Application Tracker: A Smart Website to Manage Job Applications, Interview Questions, and Offers
-      </h1>
-      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-      <form onSubmit={handleSubmit}>
+      </h1> */}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           className="input-field"
           value={username}
@@ -62,15 +62,18 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
         />
         <button type="submit">Login</button>
       </form>
-
-      <p className="switch-auth-text">
-        Don't have an account?{' '}
-        <span className="auth-mode-switch" onClick={() => setAuthMode('register')}>
-          Register here
-        </span>
-      </p>
+  
+      <div className="switch-auth-container">
+        <p className="switch-auth-text">
+          Don't have an account?{' '}
+          <span className="auth-mode-switch" onClick={() => setAuthMode('register')}>
+            Register here
+          </span>
+        </p>
+      </div>
     </div>
   );
+  
 };
 
 export default Login;

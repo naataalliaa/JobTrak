@@ -58,17 +58,18 @@ form {
   .register-link {
     margin-top: 10px;
     text-align: center;
+    color: #fff;
   }
   
   .register-button,
   .login-link {
-    color: blue;
+    color: rgb(84, 84, 220);
     text-decoration: underline;
     cursor: pointer;
   }
   
   .register-button:hover,
   .login-link:hover {
-    color: darkblue;
+    color: rgb(130, 130, 223);
   }
   

@@ -41,9 +41,9 @@ const Registration: React.FC<RegistrationProps> = ({ onRegister, setAuthMode }) 
 
   return (
     <div className="registration-container">
-      <h1 className="job-application-title">
+      {/* <h1 className="job-application-title">
         Job Application Tracker: A Smart Website to Manage Job Applications, Interview Questions, and Offers
-      </h1>
+      </h1> */}
 
       {message && <div className="message">{message}</div>} {/* Display the message */}
       

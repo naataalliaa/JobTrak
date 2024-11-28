@@ -68,7 +68,7 @@ The page contains the following input fields:
 - Each application listed below has an **X** button next to it.
 - Click the **X** to remove the application from your list.
 
-## Interview Page
+## 4. Interview Page
 
 The next page is the **Interview Page**, which contains common interview questions to help you prepare.
 
