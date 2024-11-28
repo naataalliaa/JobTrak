@@ -3,13 +3,32 @@
 
 ![JobTrak Logo](JobTrak.png)
 
-## Overview
+# Table of Contents
+
+1. [Overview](#overview)
+2. [How to Use](#how-to-use)
+   - [Create an Account](#1-create-an-account)
+   - [Login](#2-login)
+   - [Dashboard - Manage Job Applications](#3-dashboard---manage-job-applications)
+     - [How to Add a Job Application](#how-to-add-a-job-application)
+     - [Remove an Application](#remove-an-application)
+   - [Interview Page](#interview-page)
+3. [Audience](#audience)
+4. [Core Features](#core-features)
+5. [Usage](#usage)
+6. [Prerequisites](#prerequisites)
+7. [Technology Stack](#technology-stack)
+   - [Frontend](#frontend)
+   - [Backend](#backend)
+8. [License](#license)
+
+# Overview
 
 The JobTrak is a web-based application that helps users easily manage and track their job search process. It provides one location for tracking information such as job applications, interview dates, application status, links to job offers, and more. The software reduces the stress of job hunting by providing a configurable and organized platform, allowing users to input and follow the status of each application, interview, and offer in one handy location.
 
-## How to Use
+# How to Use
 
-# 1. Create an Account
+## 1. Create an Account
 
 To start using the website, you first need to create an account.
 
@@ -19,13 +38,13 @@ To start using the website, you first need to create an account.
    - **Password**
 3. After submitting the information, you will be registered and automatically logged in.
 
-# 2. Login
+## 2. Login
 
 Once you have created an account, you can log in by entering your **username** and **password** on the **Login** page.
 
 - After a successful login, you will be redirected to the **Dashboard** page.
 
-# 3. Dashboard - Manage Job Applications
+## 3. Dashboard - Manage Job Applications
 
 On the **Dashboard** page, you can manage your job applications.
 
@@ -37,14 +56,14 @@ The page contains the following input fields:
 - **Application Link** (Optional)
 - **Notes** (Optional)
 
-### How to Add a Job Application
+## How to Add a Job Application
 
 1. Fill in the required fields: **Company Name**, **Interview Date**, and **Status**.
 2. Optionally, you can also provide the **Application Link** and **Notes**.
 3. Click the **"Add Application"** button to add your job application to the list.
 4. The added application will be displayed below the input fields with the information you just provided.
 
-### Remove an Application
+## Remove an Application
 
 - Each application listed below has an **X** button next to it.
 - Click the **X** to remove the application from your list.
@@ -61,27 +80,23 @@ The questions are divided into three categories:
 
 Each question is listed with its corresponding answer to help you prepare for interviews.
 
-# Core Features
-
-- **Job Application Tracking:** Keep track of all job applications, including company names, interview dates, application links, statuses, and important notes.
-- **Interview Management:** Access a comprehensive list of common interview questions.
-- **Configurable Dashboard:** A user-friendly dashboard that allows users to customize their views and access important information at a glance.
-- **User Authentication:** Secure user authentication with JWT to protect personal data and application details.
-
-## Audience
+# Audience
  - **Job Seekers** Individuals applying for positions who want to manage their applications, track progress, and stay organized.
 
  - **Students and Recent Graduates** Those entering the workforce for the first time, applying for internships, or searching for entry-level positions.
 
  - **Career Switchers** Professionals transitioning into new industries who need to manage multiple applications and prepare for interviews.
 
-## Core Features
+# Core Features
 - **Job Application Tracking:** Keep track of all job applications, including company names, interview dates, application links, statuses, and important notes.
+
 - **Interview Management:** Access a comprehensive list of common interview questions.
+
 - **Configurable Dashboard:** A user-friendly dashboard that allows users to customize their views and access important information at a glance.
+
 - **User Authentication:** Secure user authentication with JWT to protect personal data and application details.
 
-## Usage
+# Usage
 
 JobTrak simplifies your job search process by providing an intuitive platform to manage and track your job applications. Here's how you can use it:
 
@@ -112,7 +127,7 @@ JobTrak simplifies your job search process by providing an intuitive platform to
 
 Start taking control of your job search with JobTrak, making the process organized, stress-free, and efficient!
 
-## Prerequisites
+# Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -120,7 +135,7 @@ Before you begin, ensure you have the following installed:
 - npm (comes with Node.js)
 - [Git](https://git-scm.com/)
 
-## Technology Stack
+# Technology Stack
 
 ### Frontend
 - **React.js** (with TypeScript): For building the user interface.
@@ -132,7 +147,7 @@ Before you begin, ensure you have the following installed:
 - **MongoDB** + **Mongoose** (with TypeScript): For database management and data modeling.
 - **JWT (JSON Web Token):** For secure user authentication.
 
-## License
+# License
 
 [MIT License](https://choosealicense.com/licenses/mit/)
 
