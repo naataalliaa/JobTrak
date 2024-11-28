@@ -17,27 +17,19 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
     try {
       const response = await axios.post('http://localhost:5002/api/auth/login', { username, password });
 
-      // Log the response data to inspect the returned object
       console.log('Response:', response.data); 
 
-      // Ensure the response has the token and store it in localStorage
       if (response.data.token) {
-        // On successful login, store the token and username
-        onLogin(response.data.token, username); // Call the login function
-        localStorage.setItem('token', response.data.token); // Store the token
-        localStorage.setItem('username', username); // Store the username
+        onLogin(response.data.token, username);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('username', username);
 
-        // Log the user data to console for inspection (if needed)
         console.log('Logged in User:', { token: response.data.token, username });
-
-        // Optionally, redirect or perform further actions (like navigating to a dashboard)
-        // window.location.href = '/dashboard'; // Example redirect (uncomment if needed)
       } else {
         setErrorMessage('Invalid credentials. Please try again.');
       }
 
     } catch (error: any) {
-      // Check if error.response exists to provide more specific error message
       if (error.response) {
         setErrorMessage(error.response.data.message || 'Invalid credentials. Please try again.');
       } else {
@@ -54,14 +46,14 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <input
-          className="input-field" // Added the shared class
+          className="input-field"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
           required
         />
         <input
-          className="input-field" // Added the shared class
+          className="input-field"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -70,17 +62,13 @@ const Login: React.FC<LoginProps> = ({ onLogin, setAuthMode }) => {
         />
         <button type="submit">Login</button>
       </form>
-      <div className="register-link">
-        <p>
-          Don't have an account?{' '}
-          <span
-            onClick={() => setAuthMode('register')}
-            className="register-button"
-          >
-            Register
-          </span>
-        </p>
-      </div>
+
+      <p className="switch-auth-text">
+        Don't have an account?{' '}
+        <span className="auth-mode-switch" onClick={() => setAuthMode('register')}>
+          Register here
+        </span>
+      </p>
     </div>
   );
 };

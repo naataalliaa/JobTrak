@@ -11,20 +11,18 @@ interface Interview {
   status: string;
   applicationLink?: string;
   notes?: string;
-  user: string; // Added user field
+  user: string;
 }
 
 // Define form data interface
 interface FormData {
   companyName: string;
-  interviewDate: Date | null;
+  interviewDate: string;  // Keep this as a string for the form input
   status: string;
   applicationLink: string;
   notes: string;
-  user: string; // Added user field
 }
 
-// Define props interface
 interface DashboardProps {
   handleAddInterview: (interview: Omit<IInterview, '_id'>) => Promise<void>;
   currentUser: string;
@@ -34,87 +32,67 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
   const [interviews, setInterviews] = useState<Interview[]>([]);
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
-    interviewDate: null,
+    interviewDate: '',  // Initialize as empty string
     status: '',
     applicationLink: '',
     notes: '',
-    user: currentUser, // Set the user dynamically based on logged-in user
   });
 
-  // Fetch interviews from the API
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
         const response = await axios.get<Interview[]>(`http://localhost:5002/api/${currentUser}`);
         setInterviews(response.data);
-        // Convert interviewDate to a Date object
-        const interviewsWithDates = response.data.map((interview) => ({
-          ...interview,
-          interviewDate: interview.interviewDate ? new Date(interview.interviewDate) : null,
-        }));
-        setInterviews(interviewsWithDates);
       } catch (error) {
         console.error('Error fetching interviews:', error);
       }
     };
     fetchInterviews();
   }, [currentUser]);
-  
-  // Handle input changes in the form
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-  
+
     setFormData((prevData) => ({
       ...prevData,
-      [name]:
-        name === 'interviewDate' && value
-         // ? new Date(value)
-          //? new Date(value).toLocaleDateString('en-US')
-          ? new Date(value)
-          : value,
-          user: currentUser,
+      [name]: name === 'interviewDate' && value ? value : value, // Keep interviewDate as string
     }));
   };
-  
-  // Handle form submission for adding a new interview
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!formData.companyName || !formData.interviewDate || !formData.status) {
+      console.error('Required fields are missing');
+      return;
+    }
+  
     try {
-      if (!formData.interviewDate) {
-        throw new Error('Interview date is required');
-      }
-
-      // Convert `interviewDate` to ISO string if it's a Date
+      const interviewDate = new Date(formData.interviewDate).toISOString();
+  
       const formattedFormData = {
         ...formData,
-        interviewDate:
-           formData.interviewDate instanceof Date
-            ? formData.interviewDate.toISOString()
-            : formData.interviewDate,
+        interviewDate,  // Convert date to ISO format
+        user: currentUser,  // Add user from props
       };
-
-      //await handleAddInterview(formattedFormData);
-      // Post the interview
-    await axios.post(`http://localhost:5002/api/`, formattedFormData);
-
+  
+      await axios.post('http://localhost:5002/api/find/' + currentUser + '/' + formData.companyName, formattedFormData);
+    
       setFormData({
         companyName: '',
-        interviewDate: null, // Reset to `null` instead of an empty string
+        interviewDate: '',
         status: '',
         applicationLink: '',
         notes: '',
-        user: currentUser, // Reset user dynamically
       });
-
-      // Refresh interview list after successful addition
+    
       const response = await axios.get<Interview[]>(`http://localhost:5002/api/${currentUser}`);
       setInterviews(response.data);
     } catch (error) {
       console.error('Error adding interview:', error);
     }
   };
-
-  // Handle deleting an interview
+  
   const handleDelete = async (interviewId: string) => {
     try {
       await axios.delete(`http://localhost:5002/api/find/${currentUser}/${interviewId}`);
@@ -126,19 +104,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
     }
   };
 
-  const username = 'natalia';  // Replace with dynamic username, e.g., from state or props
-
-  axios.get(`http://localhost:5002/api/${username}`)
-      .then(response => {
-          console.log(`Fetched interviews for ${username}:`, response.data);
-      })
-      .catch(error => {
-          console.error(`Error fetching interviews for ${username}:`, error.message);
-      });
-
   return (
     <div className="dashboard">
-      {/* Form for adding new interviews */}
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <input
@@ -152,11 +119,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
           <input
             type="date"
             name="interviewDate"
-            value={
-              formData.interviewDate
-                ? new Date(formData.interviewDate).toISOString().split('T')[0]
-                : ''
-            }
+            value={formData.interviewDate}
             onChange={handleInputChange}
             required
           />
@@ -190,7 +153,6 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
         <button type="submit" className="submit">Add Application</button>
       </form>
 
-      {/* Table of applications */}
       <div className="table-container">
         <table>
           <thead>
@@ -207,11 +169,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
             {interviews.map((interview) => (
               <tr key={interview._id}>
                 <td>{interview.companyName}</td>
-                <td>
-                  {interview.interviewDate
-                    ? new Date(interview.interviewDate).toLocaleDateString('en-US')
-                    : 'N/A'}
-                </td>
+                <td>{interview.interviewDate ? new Date(interview.interviewDate).toLocaleDateString('en-US') : ''}</td> {/* Format the date */}
                 <td>{interview.status}</td>
                 <td>
                   {interview.applicationLink && (
@@ -232,7 +190,6 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
     </div>

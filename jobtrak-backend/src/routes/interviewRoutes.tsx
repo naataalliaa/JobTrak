@@ -1,42 +1,72 @@
 import { Router, Request, Response } from 'express';
-import { Interview } from '../models/Interviews'; // Adjust the import path as needed
+//import { Interview } from '../models/Interviews'; // Adjust the import path as needed
 import user from '../models/user';
+import { Interview } from '../models/Interviews';
 const mongoose = require('mongoose');
 
 const router = Router();
 
 // GET /api/ - Retrieve all interviews
 router.get('/', async (req: Request, res: Response) => {
-    try {
-        const interviews = await Interview.find(); // Fetch all interviews from the database
-        res.status(200).json(interviews);
-    } catch (err: any) {
-        console.error('Error fetching interviews:', err.message);
-        res.status(500).json({ error: 'Failed to fetch interviews.' });
-    }
+  try {
+    const interviews = await Interview.find().select('-_id'); // Exclude _id from the result
+    res.status(200).json(interviews);
+  } catch (err: any) {
+    console.error('Error fetching interviews:', err.message);
+    res.status(500).json({ error: 'Failed to fetch interviews.' });
+  }
 });
 
-router.post('/', async (req: Request, res: Response) => {
-  console.log('POST request received at /api'); // Log the request
+router.post('/', async (req, res) => {
+  console.log('POST request received at /api');
+  console.log('Request Body:', req.body);
+
   try {
-      const { companyName, interviewDate, applicationLink, notes, status } = req.body;
+    const { companyName, interviewDate, status, user, applicationLink, notes } = req.body;
 
-      // Log the request body
-      console.log('Request body:', req.body);
+    // Validate required fields
+    if (!companyName || !interviewDate || !status || !user) {
+      return res.status(400).json({
+        error: 'Missing required fields: companyName, interviewDate, status, and user are required.',
+      });
+    }
 
-      if (!companyName || !interviewDate || !status) {
-          return res.status(400).json({
-              error: 'Missing required fields: companyName, interviewDate, and status are required.',
-          });
-      }
+    // Convert interviewDate from MM/DD/YYYY to a valid Date object
+    const dateParts = interviewDate.split('/');
+    if (dateParts.length !== 3) {
+      return res.status(400).json({ error: 'Invalid date format. Please use MM/DD/YYYY.' });
+    }
 
-      // Process the request here (e.g., save to DB, etc.)
-      // Simulate saving the data (replace with actual DB logic)
-      res.status(201).json({ message: 'Interview data received successfully' });
+    const formattedDate = new Date(`${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`); // Convert to YYYY-MM-DD
 
+    // Check if the formattedDate is valid
+    if (isNaN(formattedDate.getTime())) {
+      return res.status(400).json({ error: 'Invalid date format for interviewDate' });
+    }
+
+    console.log('Parsed Date:', formattedDate);
+
+    // Create a new interview document
+    const newInterview = new Interview({
+      companyName,
+      interviewDate: formattedDate,
+      status,
+      user,
+      applicationLink,
+      notes,
+    });
+
+    console.log('New Interview Object:', newInterview);
+
+    const savedInterview = await newInterview.save();
+    console.log('Interview saved:', savedInterview);
+
+    const { _id, ...savedInterviewWithoutId } = savedInterview.toObject();
+
+    res.status(201).json({ message: 'Interview added successfully', savedInterviewWithoutId });
   } catch (err: any) {
-      console.error('Error processing POST request:', err.message);
-      res.status(500).json({ error: 'Failed to process the request' });
+    console.error('Error processing POST request:', err.message);
+    res.status(500).json({ error: 'Failed to save interview.' });
   }
 });
 
@@ -46,91 +76,102 @@ interface UserParams {
 }
 
 // GET /api/:user - Retrieve interviews for a specific user
-router.get('/:username', async (req: Request<{ username: string }>, res: Response) => {
+router.get("/:username", async (req: Request, res: Response) => {
+  const { username } = req.params;
+
   try {
-      const { username } = req.params;  // Get the user from the URL parameter
+      // Fetch interviews for the given username
+      const interviews = await Interview.find({ user: username });
 
-      // Fetch interviews for the specified user
-      const userInterviews = await Interview.find({ user: username });
-
-      if (userInterviews.length === 0) {
-          return res.status(404).json({ message: `No interviews found for ${username}` });
+      if (!interviews) {
+          return res.status(404).json({ message: "No interviews found for this user" });
       }
 
-      res.status(200).json(userInterviews);  // Return the user's interviews
-  } catch (err: any) {
-      //console.error(`Error fetching interviews for ${username}:`, err.message);
-      res.status(500).json({ error: 'Failed to fetch interviews for the specified user.' });
+      res.status(200).json(interviews);
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
   }
 });
 
 // POST /api/ - Create a new interview
 router.post('/find/:user/:company', async (req: Request, res: Response) => {
+  const { user, company } = req.params; // Extract user and company from URL parameters
+  const { interviewDate, status, applicationLink, notes } = req.body;
+
+  if (!interviewDate || !status || !user) {
+    return res.status(400).json({
+      error: 'Missing required fields: interviewDate, status, and user are required.',
+    });
+  }
+
   try {
-      const { companyName, interviewDate, applicationLink, notes, status } = req.body;
-      const { user, company } = req.params;  // Extract user and company from URL parameters
+    // Convert interviewDate to Date format
+    const formattedDate = new Date(interviewDate);
+    if (isNaN(formattedDate.getTime())) {
+      return res.status(400).json({ error: 'Invalid date format for interviewDate' });
+    }
 
-      // Validate required fields
-      if (!companyName || !interviewDate || !user || !status) {
-          return res.status(400).json({
-              error: 'Missing required fields: companyName, interviewDate, user, and status are required.',
-          });
-      }
+    // Create a new interview document
+    const newInterview = new Interview({
+      companyName: company,
+      interviewDate: formattedDate,
+      status,
+      user,
+      applicationLink,
+      notes,
+    });
 
-      console.log('Creating new interview:', { user, companyName, interviewDate, status });
-
-      // Create a new interview document
-      const newInterview = new Interview({
-          companyName,
-          interviewDate,
-          applicationLink,
-          notes,
-          user,
-          status,
-      });
-      await newInterview.save();
-      res.status(201).json({ message: 'Application added' });
+    await newInterview.save();
+    res.status(201).json({ message: 'Application added' });
   } catch (err: any) {
-      console.error('Error creating interview:', err.message);
-      res.status(500).json({ error: 'Failed to create interview.' });
+    console.error('Error creating interview:', err.message);
+    res.status(500).json({ error: 'Failed to create interview.' });
   }
 });
+
 
 // GET /api/find/:user/:company - Retrieve a specific interview
 router.get('/find/:user/:company', async (req: Request, res: Response) => {
-    try {
-        const { user, company } = req.params;
-
-        // Find the interview by user and companyName
-        const interviewObj = await Interview.findOne({ user, companyName: company });
-
-        if (interviewObj) {
-            res.status(200).json(interviewObj);
-        } else {
-            res.status(404).json({ message: 'Interview not found' });
-        }
-    } catch (err: any) {
-        console.error('Error fetching interview:', err.message);
-        res.status(500).json({ error: 'Failed to fetch interview.' });
-    }
-});
-
-// DELETE /api/delete/:user/:company - Delete a specific interview
-router.delete('/find/:user/:company/:id', async (req: Request, res: Response) => {
   try {
-      const { user, company, id } = req.params;  // Extract user, company, and interview ID from URL parameters
+    const { user, company } = req.params;
 
-      // Find and delete the interview document
-      const interviewToDelete = await Interview.findOneAndDelete({ _id: id, user, company });
+    const interviewObj = await Interview.findOne({ user, companyName: company }).select('-_id');  // Exclude _id
 
-      if (!interviewToDelete) {
-          return res.status(404).json({ error: 'Interview not found.' });
-      }
-
-      res.status(200).json({ message: 'Interview deleted successfully' });
+    if (interviewObj) {
+      res.status(200).json(interviewObj);
+    } else {
+      res.status(404).json({ message: 'Interview not found' });
+    }
   } catch (err: any) {
-      console.error('Error deleting interview:', err.message);
-      res.status(500).json({ error: 'Failed to delete interview.' });
+    console.error('Error fetching interview:', err.message);
+    res.status(500).json({ error: 'Failed to fetch interview.' });
   }
 });
+
+
+
+// DELETE /api/find/:user/:id - Delete a specific interview by ID
+router.delete('/find/:user/:id', async (req: Request, res: Response) => {
+  try {
+    const { user, id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid interview ID.' });
+    }
+
+    const interviewToDelete = await Interview.findOneAndDelete({ _id: id, user });
+    if (!interviewToDelete) {
+      return res.status(404).json({ error: 'Interview not found.' });
+    }
+
+    const { _id, ...deletedInterviewWithoutId } = interviewToDelete.toObject(); // Exclude _id
+    res.status(200).json({ message: 'Interview deleted successfully', deletedInterviewWithoutId });
+  } catch (err: any) {
+    console.error('Error deleting interview:', err.message);
+    res.status(500).json({ error: 'Failed to delete interview.' });
+  }
+});
+
+
 export default router;
