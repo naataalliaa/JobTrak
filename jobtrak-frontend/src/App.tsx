@@ -1,13 +1,13 @@
-// App.tsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import InterviewForm from './components/InterviewForm';
 import InterviewList from './components/InterviewList';
 import Dashboard from './components/Dashboard/Dashboard'; 
 import Login from './components/Login';
 import Registration from './components/Registration';
 import './App.css';
 import axios from 'axios';
-import { IInterview, OmitInterview } from './components/types/interviewTypes';
+import { IInterview } from './components/types/interviewTypes';
 import { addInterview, fetchInterviews } from './api/interviewAPI';
 import { AuthProvider } from './components/AuthContent';
 import Interview from './components/Interview/Interview';
@@ -29,7 +29,7 @@ import Micron from './components/Interview/Companies/Micron';
 import Intel from './components/Interview/Companies/Intel';
 import Qualcomm from './components/Interview/Companies/Qualcomm';
 import Cisco from './components/Interview/Companies/Cisco';
-
+import Footer from './components/Footer/Footer'; // Import the Footer component
 
 const API_URL = "http://localhost:5002/api"; 
 
@@ -38,7 +38,6 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
-  const [currentUser, setCurrentUser] = useState<string>(localStorage.getItem('currentUser') || '');
 
   useEffect(() => {
     const loadInterviews = async () => {
@@ -67,10 +66,9 @@ const App: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const handleLogin = (token: string, user: string) => {
+  const handleLogin = (token: string) => {
     setIsAuthenticated(true);
     localStorage.setItem('token', token);
-    localStorage.setItem('currentUser', user);
     setAuthMode(null);
   };
 
@@ -81,7 +79,6 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
     setAuthMode(null); // Close any open authentication forms
   };
 
@@ -90,12 +87,12 @@ const App: React.FC = () => {
       <Router>
         <div>
           <header className="header">
-              <h1>JobTrak</h1>
+            <h1>Jobtrak</h1>
             <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h3>DASHBOARD</h3>
+              <h3>Dashboard</h3>
             </Link>
             <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <h3>INTERVIEW</h3>
+              <h3>Interview</h3>
             </Link>
             {isAuthenticated ? (
               <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>
@@ -151,73 +148,18 @@ const App: React.FC = () => {
               )}
               {authMode === 'register' && (
                 <>
-                  <Registration onRegister={handleRegister} setAuthMode={setAuthMode}/>
+                  <Registration onRegister={handleRegister} setAuthMode={setAuthMode} />
                 </>
               )}
             </div>
           )}
 
           <Routes>
-            {/* Interview */}
-            <Route
-              path="/interview"
-              element={
-                isAuthenticated ? (
-                  <Interview />
-                ) : (
-                  <Navigate to= "/" />
-                )
-              }
-            />
-            
-            {/* Company-specific Routes */}
-            <Route path="/amazon" element={isAuthenticated ? <Amazon /> : <Navigate to="/login" />} />
-            <Route path="/google" element={isAuthenticated ? <Google /> : <Navigate to="/login" />} />
-            <Route path="/apple" element={isAuthenticated ? <Apple /> : <Navigate to="/login" />} />
-            <Route path="/netflix" element={isAuthenticated ? <Netflix /> : <Navigate to="/login" />} />
-            <Route path="/spotify" element={isAuthenticated ? <Spotify /> : <Navigate to="/login" />} />
-            <Route path="/github" element={isAuthenticated ? <GitHub /> : <Navigate to="/login" />} />
-            <Route path="/microsoft" element={isAuthenticated ? <Microsoft /> : <Navigate to="/login" />} />
-            <Route path="/uber" element={isAuthenticated ? <Uber /> : <Navigate to="/login" />} />
-            <Route path="/nvidia" element={isAuthenticated ? <Nvidia /> : <Navigate to="/login" />} />
-            <Route path="/meta" element={isAuthenticated ? <Meta /> : <Navigate to="/login" />} />
-            <Route path="/tesla" element={isAuthenticated ? <Tesla /> : <Navigate to="/login" />} />
-            <Route path="/paypal" element={isAuthenticated ? <Paypal /> : <Navigate to="/login" />} />
-            <Route path="/oracle" element={isAuthenticated ? <Oracle /> : <Navigate to="/login" />} />
-            <Route path="/palo-alto" element={isAuthenticated ? <PaloAlto /> : <Navigate to="/login" />} />
-            <Route path="/micron" element={isAuthenticated ? <Micron /> : <Navigate to="/login" />} />
-            <Route path="/intel" element={isAuthenticated ? <Intel /> : <Navigate to="/login" />} />
-            <Route path="/qualcomm" element={isAuthenticated ? <Qualcomm /> : <Navigate to="/login" />} />
-            <Route path="/cisco" element={isAuthenticated ? <Cisco /> : <Navigate to="/login" />} />
-
-            {/* Landing Page */}
-            <Route
-              path="/"
-              element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/"/>}
-            />
-
-            {/* Dashboard and Interview Pages */}
-            <Route
-  path="/dashboard"
-  element={isAuthenticated ? (
-  
-      <Dashboard handleAddInterview={handleAddInterview} currentUser={currentUser} />
-    ) : (
-      <Navigate to="/" />
-    )
-  }
-/>
-            <Route
-              path="/interview"
-              element={
-                isAuthenticated ? (
-                  <InterviewList interviews={interviews} onDelete={deleteInterview} />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
+            {/* Add your existing routes here */}
           </Routes>
+
+          {/* Footer Component */}
+          <Footer />
         </div>
       </Router>
     </AuthProvider>
