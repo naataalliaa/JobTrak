@@ -1,159 +1,150 @@
-.table-container {
-    margin-top: 20px;
-    background-color: #f4f4f4;  /* Light gray background for the container */
+.dashboard {
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: none;  /* No shadow for a more subtle look */
-}
-
-table {
+    background-color: #f4f7fc; /* Light background color */
+    min-height: 100vh;
+  }
+  
+  .dashboard h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  form {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;  /* Light border for the table */
-    border-radius: 4px;
-    margin-top: 10px;  /* Slight margin to separate the table from the container */
-}
-
-th, td {
-    padding: 14px 20px;  /* Adequate padding for readability */
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;  /* Subtle border between rows */
-    font-size: 16px;  /* Standard font size for better visibility */
-    color: #333;  /* Dark text for readability */
-}
-
-th {
-    background-color: #c5c1c1;  /* Light gray for the header */
-    color: #333;  /* Dark text for contrast */
-    font-weight: bold;  /* Bold header text */
-    text-transform: uppercase;  /* Uppercase headers for a formal look */
-    border-bottom: 2px solid #d0d0d0;  /* Slightly darker border for the header */
-}
-
-td {
-    background-color: #ffffff;  /* White background for the table cells */
-}
-
-tr:nth-child(even) td {
-    background-color: #f9f9f9;  /* Very subtle alternating row colors */
-}
-
-tr:hover td {
-    background-color: #dbcece;  /* Slight change in color on hover */
-}
-
-a {
-    color: #007bff;  /* Soft, formal blue for links */
-    text-decoration: none;
-    font-weight: normal;  /* Regular weight for links */
-}
-
-a:hover {
-    text-decoration: underline;  /* Underline on hover */
-}
-
-button.delete {
-    background-color: #d9534f;  /* Formal red for delete button */
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-button.delete:hover {
-    background-color: #c9302c;  /* Slightly darker red on hover */
-}
-
-input, textarea {
+    max-width: 1000px; /* Increased width of the form */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Space between the form elements */
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px; /* Add space between columns */
+  }
+  
+  .form-column {
+    flex: 1;
+    min-width: 200px; /* Ensure the columns have a minimum width */
+  }
+  
+  input,
+  select {
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
-    width: 100%;  /* Full width to span the entire container */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-form button {
-    margin-top: 10px;
-}
-
-.dashboard-header {
-    background-color: #f1f1f1;  /* Subtle header background */
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.dashboard-header h1 {
-    margin: 0;
-    font-size: 28px;
-    color: #333;  /* Dark text for better contrast */
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;  /* Space between inputs */
-    flex-wrap: wrap;  /* Allow wrapping of inputs if screen size is reduced */
-    padding-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    box-sizing: border-box;
   }
   
-  .form-row input,
-  .form-row select {
-    flex: 1 1 calc(25% - 20px);  /* 4 inputs per row, flexible width with padding */
-    max-width: calc(25% - 20px); /* Ensure inputs do not grow beyond this size */
+  input[type="text"]:focus,
+  select:focus {
+    border-color: #5c9acd;
+    outline: none;
   }
   
+  input[type="text"]:disabled,
+  select:disabled {
+    background-color: #f0f0f0;
+  }
+  
+  /* Notes input to take full width and more space */
   textarea {
     width: 100%;
-    height: 180px;  /* Increase height for better readability */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    height: 150px; /* Increased height for notes */
+    box-sizing: border-box;
+  }
+  
+  .table-container {
     margin-top: 20px;
   }
   
-  /* Button Styling */
-  button.submit {
+  table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
-    background-color: #007bff;  /* Formal blue for submit button */
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 16px;
   }
-
-form button.submit:hover {
-    background-color: #0056b3;  /* Darker blue on hover */
-}
-
-/* Adjustments for Notes and Actions columns */
-td:nth-child(5) {
-    width: 40%;
-}
-
-td:nth-child(6) {
-    width: 15%;
-    text-align: right;
-}
-
-th:nth-child(6) {
-    text-align: right;
-}
-
-/* Ensure table headers appear in one line */
-th {
-    white-space: nowrap;  /* Prevent header text from wrapping to the next line */
-    padding-right: 20px;  /* Add some padding to the right of header cells */
-}
-
-/* Ensures overall padding and layout are more balanced */
-table th, table td {
-    padding: 15px 25px;  /* Generous padding for readability */
-    text-align: left;  /* Align text to the left for clarity */
-}
-
-table td, table th {
-    text-align: center;
-}
+  
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f4f7fc;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  td {
+    max-width: 200px; /* Increased max-width for other columns */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Increased space for Notes column */
+  td.notes {
+    white-space: normal; /* Allow wrapping text */
+    max-width: 1000px; /* Further increased max width for Notes */
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #3e4baf;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #131d64;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* For mobile responsiveness */
+  @media (max-width: 768px) {
+    form {
+      padding: 20px;
+    }
+  
+    input,
+    select {
+      width: 100%; /* Stack inputs on smaller screens */
+      margin: 10px 0;
+    }
+  
+    th,
+    td {
+      padding: 10px;
+    }
+  
+    /* Notes input remains full width */
+    textarea {
+      height: 120px; /* Reduced height on smaller screens */
+    }
+  }
+  

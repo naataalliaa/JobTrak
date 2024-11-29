@@ -106,52 +106,61 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
 
   return (
     <div className="dashboard">
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <input
-            type="text"
-            name="companyName"
-            value={formData.companyName}
-            onChange={handleInputChange}
-            placeholder="Company Name"
-            required
-          />
-          <input
-            type="date"
-            name="interviewDate"
-            value={formData.interviewDate}
-            onChange={handleInputChange}
-            required
-          />
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">Select Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Applied">Applied</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-          <input
-            type="text"
-            name="applicationLink"
-            value={formData.applicationLink}
-            onChange={handleInputChange}
-            placeholder="Application Link"
-          />
-        </div>
-
-        <textarea
-          name="notes"
-          value={formData.notes}
+  <form onSubmit={handleSubmit}>
+    <div className="form-row">
+      <div className="form-column">
+        <input
+          type="text"
+          name="companyName"
+          value={formData.companyName}
           onChange={handleInputChange}
-          placeholder="Notes"
+          placeholder="Company Name"
+          required
         />
+      </div>
+      <div className="form-column">
+        <input
+          type="date"
+          name="interviewDate"
+          value={formData.interviewDate}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div className="form-column">
+        <input
+          type="text"
+          name="applicationLink"
+          value={formData.applicationLink}
+          onChange={handleInputChange}
+          placeholder="Application Link"
+        />
+      </div>
+      <div className="form-column">
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleInputChange}
+          required
+        >
+          <option value="">Select Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Applied">Applied</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
 
-        <button type="submit" className="submit">Add Application</button>
-      </form>
+    <textarea
+      name="notes"
+      value={formData.notes}
+      onChange={handleInputChange}
+      placeholder="Notes"
+    ></textarea>
+
+    <button type="submit">Add Application</button>
+  </form>
+
 
       <div className="table-container">
         <table>
@@ -162,7 +171,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
               <th>Status</th>
               <th>Application Link</th>
               <th>Notes</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
