@@ -61,6 +61,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    console.log('Submit button clicked!');
     
     if (!formData.companyName || !formData.interviewDate || !formData.status) {
       console.error('Required fields are missing');
@@ -75,6 +77,8 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
         interviewDate,  // Convert date to ISO format
         user: currentUser,  // Add user from props
       };
+
+      console.log('Sending data to backend:', formattedFormData);
   
       await axios.post('http://localhost:5002/api/find/' + currentUser + '/' + formData.companyName, formattedFormData);
     
