@@ -79,8 +79,23 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
       };
 
       console.log('Sending data to backend:', formattedFormData);
+
+      const companyName = encodeURIComponent(formData.companyName.trim());
+
+      // Ensure companyName is not empty
+      if (!companyName) {
+        console.error('Company name is required');
+        return;
+      }
+
+      // POST request to backend
+      const url = `http://localhost:5002/api/find/${currentUser}/${companyName}`;
+      console.log('Making POST request to:', url);
   
-      await axios.post('http://localhost:5002/api/find/' + currentUser + '/' + formData.companyName, formattedFormData);
+      await axios.post(url, formattedFormData);
+
+  
+     // await axios.post('http://localhost:5002/api/find/' + currentUser + '/' + formData.companyName, formattedFormData);
     
       setFormData({
         companyName: '',
