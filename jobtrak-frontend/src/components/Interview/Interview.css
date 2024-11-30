@@ -44,7 +44,7 @@ input[type="text"] {
 
 .company-card h3 {
     margin: 10px 0;
-    color: black; /* Change the color to black */
+    color: black;
 }
 
 .company-card {
@@ -53,7 +53,9 @@ input[type="text"] {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: 0.2 ease;}
+    transition: 0.2 ease;
+    text-decoration: none;
+}
 
 .company-card:hover {
     -webkit-transform: scale(1.05);

@@ -37,6 +37,16 @@
     margin-bottom: -50px;
 }
 
+.company-interview {
+    background-color: white;
+    padding: 20px; /* Adjust padding for better spacing */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for better visibility */
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px; /* Set a maximum width */
+    margin: 50px auto 0 auto; /* Add margin-top to move it down and center horizontally */
+}
+
 .meta-logo {
     width: 200px;
     margin-left: center;
@@ -130,6 +140,10 @@
     margin-right: center;
     margin-top: 0px;
     margin-bottom: -30px;
+}
+
+body {
+    background-color: white;
 }
 
 .github-logo {
