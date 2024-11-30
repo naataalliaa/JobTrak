@@ -23,7 +23,13 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.post("/register", async (req: Request, res: Response) => {
   try {
-    const { username, password }: { username: string; password: string } = req.body;
+    const { username, password, confirmPassword }: { username: string; password: string; confirmPassword: string } = req.body;
+    console.log("Received:", { username, password, confirmPassword });
+   
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords do not match." });
+    }
 
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -39,10 +45,14 @@ router.post("/register", async (req: Request, res: Response) => {
     });
 
     const savedUser = await user.save();
+    const token = jwt.sign({ userId: savedUser._id }, process.env.JWT_SECRET as string);
+
     res.json({
       message: "User registered successfully",
       userId: savedUser._id,
+      token: token,
     });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
