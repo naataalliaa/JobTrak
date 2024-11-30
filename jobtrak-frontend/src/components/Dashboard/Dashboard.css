@@ -1,150 +1,167 @@
 .dashboard {
+  padding: 20px;
+  background-color: #f4f7fc; /* Light background color */
+  min-height: 100vh;
+}
+
+.dashboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.dashboard form {
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px; /* Increased width of the form */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Space between the form elements */
+}
+
+.dashboard .form-row {
+  display: flex;
+  flex-wrap: wrap;  /* Allow wrapping of elements on small screens */
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px; /* Space between the form elements */
+}
+
+.dashboard .form-column {
+  flex: 1;
+  min-width: 200px; /* Minimum width for the column */
+}
+
+.dashboard input,
+.dashboard select,
+.dashboard textarea {
+  width: 100%; /* Ensure all elements take up full width */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.dashboard input[type="text"]:focus,
+.dashboard select:focus {
+  border-color: #5c9acd;
+  outline: none;
+}
+
+.dashboard input[type="text"]:disabled,
+.dashboard select:disabled {
+  background-color: #f0f0f0;
+}
+
+/* Notes input to take full width and more space */
+.dashboard textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  height: 150px; /* Increased height for notes */
+  box-sizing: border-box;
+}
+
+.dashboard .table-container {
+  margin-top: 20px;
+}
+
+.dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dashboard th,
+.dashboard td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard th {
+  background-color: #f4f7fc;
+  font-weight: bold;
+  color: #333;
+}
+
+.dashboard td {
+  max-width: 200px; /* Increased max-width for other columns */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Increased space for Notes column */
+.dashboard td.notes {
+  white-space: normal; /* Allow wrapping text */
+  max-width: 1000px; /* Further increased max width for Notes */
+}
+
+.dashboard button {
+  padding: 12px 20px;
+  background-color: #3e4baf;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard button:hover {
+  background-color: #131d64;
+}
+
+.dashboard button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .dashboard form {
     padding: 20px;
-    background-color: #f4f7fc; /* Light background color */
-    min-height: 100vh;
   }
-  
-  .dashboard h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
+
+  /* Adjust .form-row to be more responsive */
+  .dashboard .form-row {
+    flex-direction: column;  /* Stack form elements vertically */
+    gap: 10px; /* Less space between elements */
   }
-  
-  form {
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1000px; /* Increased width of the form */
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* Space between the form elements */
+
+  .dashboard .form-column {
+    width: 100%; /* Ensure columns take full width */
+    min-width: 100%; /* Allow full-width form elements */
   }
-  
-  .form-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px; /* Add space between columns */
+
+  .dashboard input,
+  .dashboard select {
+    width: 100%; /* Ensure input fields stretch fully */
   }
-  
-  .form-column {
+
+  .dashboard textarea {
+    height: 120px; /* Reduce height for smaller screens */
+  }
+}
+
+/* For larger screens, ensure proper flex behavior */
+@media (min-width: 769px) {
+  .dashboard .form-row {
+    flex-wrap: wrap;  /* Allow wrapping but in a controlled manner */
+  }
+
+  .dashboard .form-column {
     flex: 1;
-    min-width: 200px; /* Ensure the columns have a minimum width */
+    min-width: 200px; /* Ensure columns stay at least 200px wide */
   }
-  
-  input,
-  select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  input[type="text"]:focus,
-  select:focus {
-    border-color: #5c9acd;
-    outline: none;
-  }
-  
-  input[type="text"]:disabled,
-  select:disabled {
-    background-color: #f0f0f0;
-  }
-  
-  /* Notes input to take full width and more space */
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    height: 150px; /* Increased height for notes */
-    box-sizing: border-box;
-  }
-  
-  .table-container {
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f4f7fc;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  td {
-    max-width: 200px; /* Increased max-width for other columns */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  /* Increased space for Notes column */
-  td.notes {
-    white-space: normal; /* Allow wrapping text */
-    max-width: 1000px; /* Further increased max width for Notes */
-  }
-  
-  button {
-    padding: 12px 20px;
-    background-color: #3e4baf;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #131d64;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  /* For mobile responsiveness */
-  @media (max-width: 768px) {
-    form {
-      padding: 20px;
-    }
-  
-    input,
-    select {
-      width: 100%; /* Stack inputs on smaller screens */
-      margin: 10px 0;
-    }
-  
-    th,
-    td {
-      padding: 10px;
-    }
-  
-    /* Notes input remains full width */
-    textarea {
-      height: 120px; /* Reduced height on smaller screens */
-    }
-  }
-  
+}

@@ -127,13 +127,62 @@ JobTrak simplifies your job search process by providing an intuitive platform to
 
 Start taking control of your job search with JobTrak, making the process organized, stress-free, and efficient!
 
-# Prerequisites
+# Installation Guide
 
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (LTS version recommended)
 - npm (comes with Node.js)
 - [Git](https://git-scm.com/)
+- MongoDB + mongosh 
+
+## Installation for MacOS
+
+1. Navigate to the Backend Directory: Open your terminal and navigate to the backend folder: cd jobtrak-backend
+2. Install Dependencies: Run the following command to install all the required dependencies for the backend: npm install
+
+- "@types/cors": "^2.8.17",
+- "@types/dotenv": "^8.2.0",
+- "@types/express": "^4.17.21",
+- "@types/node": "^22.6.1",
+- "concurrently": "^9.0.1",
+- "nodemon": "^3.1.7",
+- "ts-node": "^10.9.2",
+- "typescript": "^5.6.2"
+
+3. Open a new terminal. Navigate to the Frontend Directory: Open a new terminal window (or tab), and navigate to the frontend folder: cd jobtrak-frontend
+4. Install Dependencies: Run the following command to install all the required dependencies for the frontend: npm install
+
+- "@auth0/auth0-react": "^2.2.4",
+- "@emotion/react": "^11.13.3",
+- "@emotion/styled": "^11.13.0",
+- "@mui/material": "^6.1.4",
+- "@testing-library/jest-dom": "^5.17.0",
+- "@testing-library/react": "^13.4.0",
+- "@testing-library/user-event": "^13.5.0",
+- "@types/jest": "^27.5.2",
+- "@types/node": "^22.6.1",
+- "@types/react": "^18.3.8",
+- "@types/react-dom": "^18.3.0",
+- "axios": "^1.7.7",
+- "bcrypt": "^5.1.1",
+- "chart.js": "^4.4.4",
+- "cors": "^2.8.5",
+- "dotenv": "^16.4.5",
+- "express": "^4.21.0",
+- "fullcalendar": "^6.1.15",
+- "jsonwebtoken": "^9.0.2",
+- "mongoose": "^8.6.3",
+- "nodemon": "^3.1.7",
+- "react": "^18.3.1",
+- "react-dom": "^18.3.1",
+- "react-fullcalendar": "^1.0.0",
+- "react-router-dom": "^6.26.2",
+- "react-scripts": "^5.0.1",
+- "recharts": "^2.12.7",
+- "ts-node": "^10.9.2",
+- "typescript": "^5.6.2",
+- "web-vitals": "^2.1.4"
 
 # Technology Stack
 
