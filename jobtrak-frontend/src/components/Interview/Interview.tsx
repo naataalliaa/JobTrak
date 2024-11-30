@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import './Interview.css';
+import { IInterview } from '../types/interviewTypes';
 
 const companies = [
     { name: 'Amazon', logo: '/company-logos/amazon-logo.webp', path: '/amazon' },
@@ -23,10 +24,15 @@ const companies = [
     { name: 'Cisco', logo: '/company-logos/cisco-logo.webp', path: '/cisco' },
 ];
 
+interface InterviewProps {
+    handleAddInterview: (interview: Omit<IInterview, '_id'>) => Promise<void>;
+    currentUser: string;
+}
+
 // Sort companies once outside the component
 const sortedCompanies = companies.sort((a, b) => a.name.localeCompare(b.name));
 
-const Dashboard: React.FC = () => {
+const Interview: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,4 +70,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default Interview;

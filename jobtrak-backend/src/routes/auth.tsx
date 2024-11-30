@@ -10,11 +10,11 @@ router.post("/login", async (req: Request, res: Response) => {
 
   const user = await User.findOne({ username });
 
-  if (!user) return res.status(400).send("Invalid username or password.");
+  if (!user) return res.status(400).send("Invalid username.");
 
   const validPassword = await bcrypt.compare(password, user.password);
 
-  if (!validPassword) return res.status(400).send("Invalid username or password.");
+  if (!validPassword) return res.status(400).send("Invalid password.");
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string); // Use 'as string' for type assertion
 

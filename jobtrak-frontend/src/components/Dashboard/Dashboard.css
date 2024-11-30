@@ -1,141 +1,167 @@
-.table-container {
-    margin-top: 20px;
-    background-color: #ddd;
+.dashboard {
+  padding: 20px;
+  background-color: #f4f7fc; /* Light background color */
+  min-height: 100vh;
+}
+
+.dashboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.dashboard form {
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px; /* Increased width of the form */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Space between the form elements */
+}
+
+.dashboard .form-row {
+  display: flex;
+  flex-wrap: wrap;  /* Allow wrapping of elements on small screens */
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px; /* Space between the form elements */
+}
+
+.dashboard .form-column {
+  flex: 1;
+  min-width: 200px; /* Minimum width for the column */
+}
+
+.dashboard input,
+.dashboard select,
+.dashboard textarea {
+  width: 100%; /* Ensure all elements take up full width */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.dashboard input[type="text"]:focus,
+.dashboard select:focus {
+  border-color: #5c9acd;
+  outline: none;
+}
+
+.dashboard input[type="text"]:disabled,
+.dashboard select:disabled {
+  background-color: #f0f0f0;
+}
+
+/* Notes input to take full width and more space */
+.dashboard textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  height: 150px; /* Increased height for notes */
+  box-sizing: border-box;
+}
+
+.dashboard .table-container {
+  margin-top: 20px;
+}
+
+.dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dashboard th,
+.dashboard td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard th {
+  background-color: #f4f7fc;
+  font-weight: bold;
+  color: #333;
+}
+
+.dashboard td {
+  max-width: 200px; /* Increased max-width for other columns */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Increased space for Notes column */
+.dashboard td.notes {
+  white-space: normal; /* Allow wrapping text */
+  max-width: 1000px; /* Further increased max width for Notes */
+}
+
+.dashboard button {
+  padding: 12px 20px;
+  background-color: #3e4baf;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard button:hover {
+  background-color: #131d64;
+}
+
+.dashboard button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .dashboard form {
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+
+  /* Adjust .form-row to be more responsive */
+  .dashboard .form-row {
+    flex-direction: column;  /* Stack form elements vertically */
+    gap: 10px; /* Less space between elements */
+  }
+
+  .dashboard .form-column {
+    width: 100%; /* Ensure columns take full width */
+    min-width: 100%; /* Allow full-width form elements */
+  }
+
+  .dashboard input,
+  .dashboard select {
+    width: 100%; /* Ensure input fields stretch fully */
+  }
+
+  .dashboard textarea {
+    height: 120px; /* Reduce height for smaller screens */
+  }
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff; 
-    border-radius: 10px;
-    overflow: hidden;
-    table-layout: fixed; 
-}
+/* For larger screens, ensure proper flex behavior */
+@media (min-width: 769px) {
+  .dashboard .form-row {
+    flex-wrap: wrap;  /* Allow wrapping but in a controlled manner */
+  }
 
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0; 
-    word-wrap: break-word; 
-}
-
-th {
-    background-color: #6c7ae0; 
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-td {
-    background-color: #f9f9f9; 
-    color: #333;
-}
-
-tr:nth-child(even) td {
-    background-color: #f1f1f1; 
-}
-
-tr:hover td {
-    background-color: #e1e8ff;
-}
-
-a {
-    color: #6c7ae0; 
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-button.delete {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button.delete:hover {
-    background-color: #e60000;
-}
-
-input, textarea {
-    padding: 8px;
-    margin: 5px;
-    width: calc(100% - 20px);
-}
-
-form button {
-    margin-top: 10px;
-}
-
-th .dropdown-icon {
-    cursor: pointer;
-}
-
-.dashboard-header {
-    background-color: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #dee2e6;
-}
-  
-.dashboard-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-  
-.sumbit {
-    background-color: aqua;
-}
-  
-.form-row {
-    display: flex;
-    gap: 10px; 
-    padding-top: 20px;
-}
-
-.form-row input,
-.form-row select {
-    flex: 1; 
-}
-
-textarea {
-    width: 100%; 
-    height: 100px; 
-}
-
-form button.submit {
-    margin-top: 10px;
-    background-color: aqua;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 10px;
-}
-
-form button.submit:hover {
-    background-color: #00bfff;
-}
-
-/* Adjustments for Notes and Actions columns */
-td:nth-child(5) {
-    width: 50%; /* Increase width of the Notes column */
-}
-
-td:nth-child(6) {
-    width: 10%; /* Adjust width of Actions column */
-    text-align: right; /* Align text to the right */
-}
-
-th:nth-child(6) {
-    text-align: right; /* Align header text to the right */
+  .dashboard .form-column {
+    flex: 1;
+    min-width: 200px; /* Ensure columns stay at least 200px wide */
+  }
 }

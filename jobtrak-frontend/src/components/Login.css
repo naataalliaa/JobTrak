@@ -1,0 +1,98 @@
+/* Common form styling */
+body {
+  background: url(../photos/loginandregistration.jpg) no-repeat center center fixed;
+  background-size: cover; /* Ensure the image covers the full viewport */
+  height: 100vh; /* Make sure the body takes up full viewport height */
+  margin: 0; /* Remove default body margin */
+}
+
+form {
+  max-width: 400px;
+  margin: 50px auto; /* Center the form */
+  padding: 20px;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9; /* Subtle background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+  font-family: Arial, sans-serif;
+}
+
+/* .job-application-title {
+  font-size: 40px;
+  font-weight: 100;
+  text-align: center;
+  font-style: italic;
+  color: #fff;
+} */
+/* Login form styling */
+.login-form {
+  display: flex;
+  flex-direction: column; /* Stack form fields vertically */
+  gap: 15px; /* Space between form fields */
+}
+
+/* Input fields */
+.input-field {
+  width: 100%; /* Full width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.input-field:focus {
+  border-color: #007BFF; /* Blue border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow */
+}
+
+/* Button styling */
+button {
+  width: 100%; /* Full-width button */
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* White text */
+  background-color: #007BFF; /* Blue background */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow */
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Switch auth text */
+.switch-auth-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.switch-auth-text {
+  color: #f9f3f3;
+}
+
+.auth-mode-switch {
+  color: rgb(122, 122, 255);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth-mode-switch:hover {
+  color: rgb(130, 130, 223);
+}

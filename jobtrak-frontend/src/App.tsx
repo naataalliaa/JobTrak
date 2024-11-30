@@ -1,13 +1,13 @@
+// App.tsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
-import InterviewForm from './components/InterviewForm';
 import InterviewList from './components/InterviewList';
 import Dashboard from './components/Dashboard/Dashboard'; 
 import Login from './components/Login';
 import Registration from './components/Registration';
 import './App.css';
 import axios from 'axios';
-import { IInterview } from './components/types/interviewTypes';
+import { IInterview, OmitInterview } from './components/types/interviewTypes';
 import { addInterview, fetchInterviews } from './api/interviewAPI';
 import { AuthProvider } from './components/AuthContent';
 import Interview from './components/Interview/Interview';
@@ -38,6 +38,7 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('theme') || 'light');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null);
+  const [currentUser, setCurrentUser] = useState<string>(localStorage.getItem('currentUser') || '');
 
   useEffect(() => {
     const loadInterviews = async () => {
@@ -66,9 +67,10 @@ const App: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const handleLogin = (token: string) => {
+  const handleLogin = (token: string, user: string) => {
     setIsAuthenticated(true);
     localStorage.setItem('token', token);
+    localStorage.setItem('currentUser', user);
     setAuthMode(null);
   };
 
@@ -79,6 +81,7 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     setAuthMode(null); // Close any open authentication forms
   };
 
@@ -87,12 +90,12 @@ const App: React.FC = () => {
       <Router>
         <div>
           <header className="header">
-              <h1>Jobtrak</h1>
+              <h1>JobTrak</h1>
             <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h3>Dashboard</h3>
+            <h3>DASHBOARD</h3>
             </Link>
             <Link to="/interview" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <h3>Interview</h3>
+              <h3>INTERVIEW</h3>
             </Link>
             {isAuthenticated ? (
               <h2 onClick={handleLogout} style={{ cursor: 'pointer' }}>
@@ -143,49 +146,30 @@ const App: React.FC = () => {
             <div className="auth-form">
               {authMode === 'login' && (
                 <>
-                  <Login onLogin={handleLogin} />
-                  <p>
-                    Don't have an account?{' '}
-                    <span
-                      onClick={() => setAuthMode('register')}
-                      style={{ cursor: 'pointer', color: 'blue' }}
-                    >
-                      Register
-                    </span>
-                  </p>
+                  <Login onLogin={handleLogin} setAuthMode={setAuthMode} />
                 </>
               )}
               {authMode === 'register' && (
                 <>
-                  <Registration onRegister={handleRegister} />
-                  <p>
-                    Already have an account?{' '}
-                    <span
-                      onClick={() => setAuthMode('login')}
-                      style={{ cursor: 'pointer', color: 'blue' }}
-                    >
-                      Log in
-                    </span>
-                  </p>
+                  <Registration onRegister={handleRegister} setAuthMode={setAuthMode}/>
                 </>
               )}
-              <button onClick={() => setAuthMode(null)}>Close</button>
             </div>
           )}
 
           <Routes>
+            {/* Interview */}
+            <Route
+              path="/interview"
+              element={
+                isAuthenticated ? (
+                  <Interview />
+                ) : (
+                  <Navigate to= "/" />
+                )
+              }
+            />
             
-          {/* Interview */}
-          <Route
-            path="/interview"
-            element={
-              isAuthenticated ? (
-                <Interview />
-              ) : (
-                <Navigate to= "/" />
-              )
-            }
-          />
             {/* Company-specific Routes */}
             <Route path="/amazon" element={isAuthenticated ? <Amazon /> : <Navigate to="/login" />} />
             <Route path="/google" element={isAuthenticated ? <Google /> : <Navigate to="/login" />} />
@@ -206,41 +190,28 @@ const App: React.FC = () => {
             <Route path="/qualcomm" element={isAuthenticated ? <Qualcomm /> : <Navigate to="/login" />} />
             <Route path="/cisco" element={isAuthenticated ? <Cisco /> : <Navigate to="/login" />} />
 
-
-          {/* Landing Page */}
-          <Route
-            path="/"
-            element={isAuthenticated ? <Navigate to="/dashboard" /> : (
-                <Navigate to="/"/>
-          )}
-          />
+            {/* Landing Page */}
+            <Route
+              path="/"
+              element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/"/>}
+            />
 
             {/* Dashboard and Interview Pages */}
             <Route
-              path="/dashboard"
-              element={
-                isAuthenticated ? (
-                  <Dashboard />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
+  path="/dashboard"
+  element={isAuthenticated ? (
+  
+      <Dashboard handleAddInterview={handleAddInterview} currentUser={currentUser} />
+    ) : (
+      <Navigate to="/" />
+    )
+  }
+/>
             <Route
               path="/interview"
               element={
                 isAuthenticated ? (
                   <InterviewList interviews={interviews} onDelete={deleteInterview} />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
-            <Route
-              path="/add-interview"
-              element={
-                isAuthenticated ? (
-                  <InterviewForm onAdd={handleAddInterview} />
                 ) : (
                   <Navigate to="/" />
                 )

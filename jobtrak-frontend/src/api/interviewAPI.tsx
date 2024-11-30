@@ -9,10 +9,20 @@ export const fetchInterviews = async (): Promise<IInterview[]> => {
 };
 
 export const addInterview = async (interview: Omit<IInterview, '_id'>): Promise<IInterview> => {
-  const res = await axios.post(`${API_URL}/`, interview);
+  const { user, companyName, ...rest } = interview;
+
+  // Debug log to ensure data integrity
+  console.log('Adding interview with data:', { user, companyName, ...rest });
+
+  if (!user || !companyName || !rest.interviewDate || !rest.status) {
+    throw new Error('Missing required fields: user, companyName, interviewDate, or status.');
+  }
+
+  const res = await axios.post(`${API_URL}/find/${user}/${companyName}`, rest);
   return res.data;
 };
 
-export const deleteInterview = async (user: string, company: string): Promise<void> => {
-  await axios.delete(`${API_URL}/delete/${user}/${company}`);
+
+export const deleteInterview = async (user: string, company: string, id: string): Promise<void> => {
+  await axios.delete(`${API_URL}/find/${user}/${company}/${id}`); // Fix: Include id in the URL
 };

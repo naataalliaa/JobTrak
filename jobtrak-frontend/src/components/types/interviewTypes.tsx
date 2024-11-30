@@ -9,3 +9,4 @@ export interface IInterview {
     user: string;
   }
   
+  export type OmitInterview = Omit<IInterview, "_id">;
