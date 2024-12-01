@@ -3,6 +3,8 @@
 
    ![JobTrak Logo](JobTrak.png)
 
+   ![JobTrak Video](https://youtu.be/epf7OBik780)
+
 # Table of Contents
 
 1. [Overview](#overview)
