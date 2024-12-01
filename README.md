@@ -1,7 +1,7 @@
 
 # JobTrak
 
-                  ![JobTrak Logo](JobTrak.png)
+   ![JobTrak Logo](JobTrak.png)
 
 # Table of Contents
 
