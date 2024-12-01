@@ -14,15 +14,16 @@
      - [Remove an Application](#remove-an-application)
    - [Interview Page](#interview-page)
 3. [Audience](#audience)
-4. [Installation Guide](#installation-guide)
+4. [Core Features](#core-features)
+5. [Usage](#usage)
+6. [Installation Guide](#installation-guide)
    - [Installation Guide for Windows](#installation-guide-for-windows)
    - [Installation Guide for MacOS](#installation-guide-for-macos)
-5. [Usage](#usage)
-6. [Prerequisites](#prerequisites)
-7. [Technology Stack](#technology-stack)
+7. [How to Run the Project](#how-to-run-the-project)
+8. [Technology Stack](#technology-stack)
    - [Frontend](#frontend)
    - [Backend](#backend)
-8. [License](#license)
+9. [License](#license)
 
 # Overview
 
