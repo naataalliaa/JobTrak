@@ -3,7 +3,7 @@
 
    ![JobTrak Logo](JobTrak.png)
 
-   ![JobTrak Video](https://youtu.be/epf7OBik780)
+  <iframe width="560" height="315" src="https://youtu.be/epf7OBik780" frameborder="0" allowfullscreen></iframe>
 
 # Table of Contents
 
