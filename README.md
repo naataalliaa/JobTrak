@@ -138,6 +138,30 @@ Before you begin, ensure you have the following installed:
 - [Git](https://git-scm.com/)
 - MongoDB + mongosh 
 
+## Installation Guide for Windows
+- **Step 1:** Install [Visual Studio Code](https://code.visualstudio.com/)
+
+- **Step 2:** Install [Node.js](https://nodejs.org/en) and make sure to check the box to install Chocolatey
+
+- **Step 3:** Install [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+
+- **Step 4:** Install [Mongo Shell](https://www.mongodb.com/try/download/compass)
+
+- **Step 5:** Get [JobTrak](https://github.com/naataalliaa/JobTrak) file
+
+- **Step 6:** Open Visual Studio Code. Go to the toolbar and select File – Open Folder, then click on JobTrak folder.
+
+- **Step 7:** Go to the toolbar and select Terminal – New Terminal.
+
+- **Step 8:** In the Terminal, type **“npm -f install”** in the terminal which will install all the
+dependencies you need to start the website.
+
+    - **Tip:** if you run into this error that it cannot be loaded because running scripts is disable on this system.
+
+        - Run Powershell as administrator and run the following: **PS C:\> Set-ExecutionPolicy RemoteSigned** and Yes to all with **“A”**.
+
+- **Step 9:** after installing all the dependencies, type **“npm start”** in the terminal to start to website.
+
 ## Installation Guide for MacOS
 
 1. Open Visual Studio Code. Open folder named: JobTrak
