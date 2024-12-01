@@ -2,6 +2,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
 import { IInterview } from '../types/interviewTypes';
+import moment from 'moment-timezone'
 
 // Define interview interface
 interface Interview {
@@ -38,10 +39,12 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
     notes: '',
   });
 
+ 
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
         const response = await axios.get<Interview[]>(`http://localhost:5002/api/${currentUser}`);
+        console.log('Fetched interviews:', response.data);
         setInterviews(response.data);
       } catch (error) {
         console.error('Error fetching interviews:', error);
@@ -49,6 +52,16 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
     };
     fetchInterviews();
   }, [currentUser]);
+
+  // Set the default value for interviewDate to today's date in the correct format (YYYY-MM-DD)
+  useEffect(() => {
+    const today = moment().tz('America/Chicago').format('YYYY-MM-DD');
+    //const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    setFormData((prevData) => ({
+      ...prevData,
+      interviewDate: today,  // Set today's date as the default
+    }));
+  }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -70,8 +83,9 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
     }
   
     try {
-      const interviewDate = new Date(formData.interviewDate).toISOString();
-  
+      //const interviewDate = new Date(formData.interviewDate).toISOString();
+      const interviewDate = moment(formData.interviewDate, 'YYYY-MM-DD').toISOString();
+    
       const formattedFormData = {
         ...formData,
         interviewDate,  // Convert date to ISO format
@@ -99,7 +113,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
     
       setFormData({
         companyName: '',
-        interviewDate: '',
+        interviewDate: new Date().toISOString().split('T')[0],
         status: '',
         applicationLink: '',
         notes: '',
@@ -125,6 +139,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
 
   return (
     <div className="dashboard">
+       
   <form onSubmit={handleSubmit}>
     <div className="form-row">
       <div className="form-column">
@@ -181,7 +196,7 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
   </form>
 
 
-      <div className="table-container">
+  <div className="table-container">
         <table>
           <thead>
             <tr>
@@ -194,29 +209,36 @@ const Dashboard: React.FC<DashboardProps> = ({ handleAddInterview, currentUser }
             </tr>
           </thead>
           <tbody>
-            {interviews.map((interview) => (
-              <tr key={interview._id}>
-                <td>{interview.companyName}</td>
-                <td>{interview.interviewDate ? new Date(interview.interviewDate).toLocaleDateString('en-US') : ''}</td> {/* Format the date */}
-                <td>{interview.status}</td>
-                <td>
-                  {interview.applicationLink && (
-                    <a href={interview.applicationLink} target="_blank" rel="noopener noreferrer">
-                      {interview.applicationLink}
-                    </a>
-                  )}
-                </td>
-                <td>{interview.notes}</td>
-                <td>
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(interview._id)}
-                  >
-                    X
-                  </button>
+            {interviews.map((interview) => {
+              // Convert interviewDate to Louisiana time
+              const interviewDate = interview.interviewDate
+                ? moment(interview.interviewDate).tz('America/Chicago').format('MM/DD/YYYY')
+                : '';
+              
+              return (
+                <tr key={interview._id}>
+                  <td>{interview.companyName}</td>
+                  <td>{interviewDate}</td> {/* Render the converted date */}
+                  <td>{interview.status}</td>
+                  <td>
+                    {interview.applicationLink && (
+                      <a href={interview.applicationLink} target="_blank" rel="noopener noreferrer">
+                        {interview.applicationLink}
+                      </a>
+                    )}
+                  </td>
+                  <td>{interview.notes}</td>
+                  <td>
+                    <button
+                      className="delete"
+                      onClick={() => handleDelete(interview._id)}
+                    >
+                      X
+                    </button>
                 </td>
               </tr>
-            ))}
+              );
+              })}
           </tbody>
         </table>
       </div>

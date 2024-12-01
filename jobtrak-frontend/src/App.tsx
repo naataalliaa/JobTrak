@@ -109,38 +109,7 @@ const App: React.FC = () => {
                 Log in
               </h2>
             )}
-
-            {/* Theme Switcher */}
-            <div className="theme-switcher">
-              <label
-                className={`light ${theme === 'light' ? 'active' : ''}`}
-                title="Light Theme"
-              >
-                <input
-                  name="theme"
-                  type="radio"
-                  value="light"
-                  checked={theme === 'light'}
-                  onChange={() => setTheme('light')}
-                />
-                Light
-              </label>
-              <label
-                className={`dark ${theme === 'dark' ? 'active' : ''}`}
-                title="Dark Theme"
-              >
-                <input
-                  name="theme"
-                  type="radio"
-                  value="dark"
-                  checked={theme === 'dark'}
-                  onChange={() => setTheme('dark')}
-                />
-                Dark
-              </label>
-            </div>
           </header>
-
           {/* Authentication Form */}
           {authMode && !isAuthenticated && (
             <div className="auth-form">
