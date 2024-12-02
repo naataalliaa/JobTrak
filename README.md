@@ -102,37 +102,6 @@ Each question is listed with its corresponding answer to help you prepare for in
 
 - **User Authentication:** Secure user authentication with JWT to protect personal data and application details.
 
-# Usage
-
-JobTrak simplifies your job search process by providing an intuitive platform to manage and track your job applications. Here's how you can use it:
-
-1. **Sign Up or Log In**  
-   Create an account or log in to start using JobTrak. Your data will be securely stored and encrypted. 
-
-2. **Add a Job Application**   
-   - Fill out details like:
-     - Company name
-     - Interview date
-     - Job posting link
-     - Status (e.g., Applied, Pending, Rejected)  
-     - Important information  
-
-3. **Track Your Progress**  
-   View all your applications in an organized dashboard:  
-   - Update statuses as you progress through interviews and negotiations.
-
-4. **Common Interview Questions**  
-    JobTrak helps you prepare for interviews by suggesting questions in the following categories:
-     - Behavioral Questions
-     - Technical Questions
-     - Coding Questions 
-
-5. **Keep Everything in One Place**  
-   - Store links to job descriptions and postings.
-   - Add notes for interviews, tasks, and follow-ups.
-
-Start taking control of your job search with JobTrak, making the process organized, stress-free, and efficient!
-
 # Installation Guide
 
 Before you begin, ensure you have the following installed:
