@@ -18,15 +18,14 @@
    - [Interview Page](#interview-page)
 3. [Audience](#audience)
 4. [Core Features](#core-features)
-5. [Usage](#usage)
-6. [Installation Guide](#installation-guide)
+5. [Installation Guide](#installation-guide)
    - [Installation Guide for Windows](#installation-guide-for-windows)
    - [Installation Guide for MacOS](#installation-guide-for-macos)
-7. [How to Run the Project](#how-to-run-the-project)
-8. [Technology Stack](#technology-stack)
+6. [How to Run the Project](#how-to-run-the-project)
+7. [Technology Stack](#technology-stack)
    - [Frontend](#frontend)
    - [Backend](#backend)
-9. [License](#license)
+8. [License](#license)
 
 # Overview
 
