@@ -43,6 +43,8 @@ To start using the website, you first need to create an account.
    - **Password**
 3. After submitting the information, you will be registered and automatically logged in.
 
+4. After registration, refresh the page and log in again to see the saved changes.
+
 ## 2. Login
 
 Once you have created an account, you can log in by entering your **username** and **password** on the **Login** page.
